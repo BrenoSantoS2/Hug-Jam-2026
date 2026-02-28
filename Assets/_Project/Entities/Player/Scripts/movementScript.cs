@@ -14,18 +14,38 @@ public class BeatEmUpController : MonoBehaviour
     public float gravityValue = -25f;
 
     private Rigidbody2D rb;
+    private Animator anim;
+    private SpriteRenderer spriteRenderer;
     private Vector2 moveInput;
     private bool isJumping = false;
     private float verticalVelocity = 0;
+    private float lastDirectionX = 1f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
+        anim = GetComponent<Animator>();
+        spriteRenderer = visualTransform.GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        float speed = moveInput.magnitude; 
+        anim.SetFloat("Speed", speed);
+
+        if (moveInput.x > 0.1f)
+        {
+            lastDirectionX = 1f;
+            spriteRenderer.flipX = false;
+        }
+        else if (moveInput.x < -0.1f)
+        {
+            lastDirectionX = -1f;
+            spriteRenderer.flipX = true;
+        }
+
+        anim.SetBool("isJumping", isJumping);
         Debug.Log($"Move Input: {moveInput}, Vertical Velocity: {verticalVelocity}, Is Jumping: {isJumping}");
     }
 
@@ -56,23 +76,30 @@ public class BeatEmUpController : MonoBehaviour
     {
         isJumping = true;
         verticalVelocity = jumpForce;
-        float currentY = 0;
+        float startY = visualTransform.localPosition.y;
+        float currentY = startY;
 
-        while (currentY > 0 || verticalVelocity > 0)
+        while (currentY > startY || verticalVelocity > 0)
         {
             verticalVelocity += gravityValue * Time.deltaTime;
             
             currentY += verticalVelocity * Time.deltaTime;
 
-            if (currentY < 0)
+            if (currentY < startY)
             {
-                currentY = 0;
+                currentY = startY;
             }
 
-            visualTransform.localPosition = new Vector3(0, currentY, 0);
+            Vector3 newPos = visualTransform.localPosition;
+            newPos.y = currentY;
+            visualTransform.localPosition = newPos;
 
             yield return null;
         }
+
+        Vector3 finalPos = visualTransform.localPosition;
+        finalPos.y = startY;
+        visualTransform.localPosition = finalPos;
 
         isJumping = false;
         verticalVelocity = 0;
