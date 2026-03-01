@@ -4,11 +4,11 @@ using System.Collections;
 public class InteractableItem : MonoBehaviour
 {
     [Header("Configurações")]
-    public float interactionTime = 2.0f; // Tempo que você quer que dure
-    public float originalAnimDuration = 1.0f; // Duração da animação no Animator
+    public float interactionTime = 2.0f;
+    public float originalAnimDuration = 1.0f;
 
     [Header("Referências")]
-    public Animator loadingBallAnim; // Animator da bolinha
+    public Animator loadingBallAnim;
     public GameObject loadingObject;
 
     private bool isPlayerNearby = false;
@@ -85,7 +85,6 @@ public class InteractableItem : MonoBehaviour
         isInteracting = true;
         loadingObject.SetActive(true);
 
-        // Ajusta a velocidade da animação para bater com o tempo de interação
         loadingBallAnim.speed = originalAnimDuration / interactionTime;
         loadingBallAnim.Play("Loading", -1, 0f);
 
@@ -95,10 +94,8 @@ public class InteractableItem : MonoBehaviour
             itemAnim.SetBool("isVasculhando", true);
         }
 
-        // Espera o tempo necessário
         yield return new WaitForSeconds(interactionTime);
 
-        // --- SUCESSO ---
         isInteracting = false;
         loadingObject.SetActive(false);
         
