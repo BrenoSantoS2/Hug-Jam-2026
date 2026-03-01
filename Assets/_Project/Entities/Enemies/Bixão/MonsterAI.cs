@@ -1,8 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MonsterAI : MonoBehaviour
 {
+    private enum MonsterState { Patrolling, Chasing }
+    [SerializeField] private MonsterState currentState = MonsterState.Patrolling;
+
     [Header("Configuracoes de patrulha")]
     public Transform pointA;
     public Transform pointB;
@@ -10,12 +14,18 @@ public class MonsterAI : MonoBehaviour
     private Vector3 targetDestination;
     private Vector3 originalWorldScale;
 
-    [Header("Deteccao do jogador")]
+    [Header("Configurações de Perseguição")]
     public Transform player;
+    public float chaseSpeed = 3.5f;
+    public float visionRange = 5f;
+    public float stopChasingRange = 7f;
+
+    [Header("Deteccao do jogador")]
     public float pulseDistance = 5f;
     public float maxPulseFactor = 0.2f;
     public Color alertColor = Color.red;
     public Color originalColor;
+    private float lookDirection = 1f;
 
     private SpriteRenderer spriteRenderer;
 
@@ -31,8 +41,27 @@ public class MonsterAI : MonoBehaviour
 
     private void Update()
     {
-        MovePatrol();
-        HandleVisualFeedback();
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        switch(currentState)
+        {
+            case MonsterState.Patrolling:
+                MovePatrol();
+                if (distanceToPlayer < visionRange)
+                {
+                    currentState = MonsterState.Chasing;
+                }
+                break;
+
+            case MonsterState.Chasing:
+                MoveChase();
+                if (distanceToPlayer > stopChasingRange)
+                {
+                    currentState = MonsterState.Patrolling;
+                }
+                break;
+        }
+        HandleVisualFeedback(10);
     }
 
     void MovePatrol()
@@ -45,32 +74,39 @@ public class MonsterAI : MonoBehaviour
         }
     }
 
-    void HandleVisualFeedback()
+    void MoveChase()
     {
-        float lookDirection = (targetDestination.x > transform.position.x) ? 1f : -1f;
+        transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
+    }
 
-        float distance = Vector3.Distance(transform.position, player.position);
-        float scalePulseFactor = 0f;
+    void HandleVisualFeedback(float distance)
+    {
+        Vector3 moveTarget = (currentState == MonsterState.Chasing) ? player.position : targetDestination;
 
-        if(distance < pulseDistance)
+        float xDiff = moveTarget.x - transform.position.x;
+        if (Mathf.Abs(xDiff) > 0.01f)
         {
-            float pulseValue = Mathf.PingPong(Time.time * 5f, 1f);
+            lookDirection = (xDiff > 0) ? 1f : -1f;
+        }
+
+        // Lógica de Pulsação
+        float pulseValue = 0f;
+        if (distance < visionRange || currentState == MonsterState.Chasing)
+        {
+            pulseValue = Mathf.PingPong(Time.time * 5f, 1f);
             spriteRenderer.color = Color.Lerp(originalColor, alertColor, pulseValue);
-            scalePulseFactor = pulseValue * maxPulseFactor;
         }
         else
         {
             spriteRenderer.color = originalColor;
         }
 
-        float finalScaleX = originalWorldScale.x * lookDirection;
-        float finalScaleY = originalWorldScale.y;
-        float finalScaleZ = originalWorldScale.z;
+        float scaleFactor = 1f + (pulseValue * maxPulseFactor);
 
         transform.localScale = new Vector3(
-            finalScaleX * (1f + scalePulseFactor),
-            finalScaleY * (1f + scalePulseFactor),
-            finalScaleZ
+            originalWorldScale.x * lookDirection * scaleFactor,
+            originalWorldScale.y * scaleFactor,
+            originalWorldScale.z
         );
     }
 
@@ -86,5 +122,14 @@ public class MonsterAI : MonoBehaviour
     void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, visionRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, stopChasingRange);
     }
 }
