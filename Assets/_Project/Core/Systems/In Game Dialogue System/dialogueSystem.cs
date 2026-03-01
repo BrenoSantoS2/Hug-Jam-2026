@@ -105,6 +105,7 @@ public enum DialogueType
     HidingEnter,
     HidingExit,
     DoorAnswered,
-    DoorNoResponse
+    DoorNoResponse,
+    NotEnoughFood
 }
 
