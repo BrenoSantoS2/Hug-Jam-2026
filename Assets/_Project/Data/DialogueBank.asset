@@ -23,6 +23,18 @@ MonoBehaviour:
     - Tem porra nenhuma
     - Caraio nada De novo
     - "S\xF3 quero uma cumida"
-  - type: 1
+  - type: 2
     dialogues:
-    - Tem porra nenhuma
+    - Deixa eu me esconder do Tobias
+    - "Meio desconfort\xE1vel"
+  - type: 3
+    dialogues:
+    - "ACho que o tobias j\xE1 foi"
+    - Porra deixa eu fugir daqui
+  - type: 4
+    dialogues:
+    - Me da um cumida?
+  - type: 5
+    dialogues:
+    - '** SAI DAQUI SEU PORRA**'
+    - '** TU TA AQUI DE NOVO MENO?! **'

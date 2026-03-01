@@ -14,12 +14,14 @@ public class MonsterAI : MonoBehaviour
     private Vector3 targetDestination;
     private Vector3 originalWorldScale;
 
-    [Header("Configurações de Perseguição")]
+    [Header("ConfiguraÃ§Ãµes de PerseguiÃ§Ã£o")]
     public Transform player;
     public float chaseSpeed = 3.5f;
     public float visionRange = 5f;
     public float stopChasingRange = 7f;
 
+    private BeatEmUpController playerController;
+    
     [Header("Deteccao do jogador")]
     public float pulseDistance = 5f;
     public float maxPulseFactor = 0.2f;
@@ -37,6 +39,8 @@ public class MonsterAI : MonoBehaviour
         targetDestination = pointA.position;
 
         if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (player != null)
+            playerController = player.GetComponent<BeatEmUpController>();
     }
 
     private void Update()
@@ -47,13 +51,18 @@ public class MonsterAI : MonoBehaviour
         {
             case MonsterState.Patrolling:
                 MovePatrol();
-                if (distanceToPlayer < visionRange)
+                if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
                 {
                     currentState = MonsterState.Chasing;
                 }
                 break;
 
             case MonsterState.Chasing:
+                if (!CanSeeAndAttackPlayer())
+                {
+                    currentState = MonsterState.Patrolling;
+                    break;
+                }
                 MoveChase();
                 if (distanceToPlayer > stopChasingRange)
                 {
@@ -76,7 +85,8 @@ public class MonsterAI : MonoBehaviour
 
     void MoveChase()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
+        if (player != null)
+            transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
     }
 
     void HandleVisualFeedback(float distance)
@@ -89,7 +99,6 @@ public class MonsterAI : MonoBehaviour
             lookDirection = (xDiff > 0) ? 1f : -1f;
         }
 
-        // Lógica de Pulsação
         float pulseValue = 0f;
         if (distance < visionRange || currentState == MonsterState.Chasing)
         {
@@ -112,9 +121,8 @@ public class MonsterAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && CanSeeAndAttackPlayer())
         {
-            Debug.Log("O Monstro te pegou!");
             RestartLevel();
         }
     }
@@ -124,6 +132,15 @@ public class MonsterAI : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+
+    private bool CanSeeAndAttackPlayer()
+    {
+        if (player == null)
+            return false;
+        if (playerController == null)
+            return true;
+        return playerController.enabled;
+    }
 
     void OnDrawGizmosSelected()
     {

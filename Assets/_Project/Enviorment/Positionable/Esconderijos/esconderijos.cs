@@ -56,6 +56,9 @@ public class esconderijos : MonoBehaviour
         isPlayerInside = true;
         if (occupiedSprite != null)
             sr.sprite = occupiedSprite;
+
+        if (DialogueSystem.Instance != null)
+            DialogueSystem.Instance.ShowDialogue(DialogueType.HidingEnter);
     }
 
     private void Exit()
@@ -76,5 +79,8 @@ public class esconderijos : MonoBehaviour
         isPlayerInside = false;
         if (emptySprite != null)
             sr.sprite = emptySprite;
+
+        if (DialogueSystem.Instance != null)
+            DialogueSystem.Instance.ShowDialogue(DialogueType.HidingExit);
     }
 }

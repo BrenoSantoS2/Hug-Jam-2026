@@ -103,6 +103,8 @@ public enum DialogueType
     TrashFoundFood,
     TrashEmpty,
     HidingEnter,
-    HidingExit
+    HidingExit,
+    DoorAnswered,
+    DoorNoResponse
 }
 
