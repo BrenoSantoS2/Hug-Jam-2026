@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class InteractableItem : MonoBehaviour
@@ -11,11 +12,21 @@ public class InteractableItem : MonoBehaviour
     public Animator loadingBallAnim;
     public GameObject loadingObject;
 
+    [Header("Eventos")]
+    public UnityEvent onInteractionComplete;
+    public UnityEvent onSubsequentInteraction;
+
+    [Header("Comportamento")]
+    public bool reusable = true;
+
     private bool isPlayerNearby = false;
     private bool isInteracting = false;
     private Coroutine interactionCoroutine;
     private Animator playerAnim;
     private Animator itemAnim;
+
+    private int interactionCount = 0;
+
     private void Awake()
     {
         itemAnim = GetComponent<Animator>();
@@ -74,8 +85,8 @@ public class InteractableItem : MonoBehaviour
 
             if(playerAnim != null)
             {
-                playerAnim.SetBool("isVasculhando", false);
-                itemAnim.SetBool("isVasculhando", false);
+                playerAnim.SetBool("isInteracting", false);
+                itemAnim.SetBool("isInteracting", false);
             }
         }
     }
@@ -90,8 +101,8 @@ public class InteractableItem : MonoBehaviour
 
         if(playerAnim != null)
         {
-            playerAnim.SetBool("isVasculhando", true);
-            itemAnim.SetBool("isVasculhando", true);
+            playerAnim.SetBool("isInteracting", true);
+            itemAnim.SetBool("isInteracting", true);
         }
 
         yield return new WaitForSeconds(interactionTime);
@@ -100,14 +111,20 @@ public class InteractableItem : MonoBehaviour
         loadingObject.SetActive(false);
         
         if(playerAnim != null) 
-            playerAnim.SetBool("isVasculhando", false);
-            itemAnim.SetBool("isVasculhando", false);
+            playerAnim.SetBool("isInteracting", false);
+            itemAnim.SetBool("isInteracting", false);
 
-        ConseguirAlgo();
-    }
+        interactionCount++;
 
-    private void ConseguirAlgo()
-    {
-        Debug.Log("Interação concluída com sucesso!");
+        if (interactionCount == 1 || reusable)
+        {
+            if(onInteractionComplete != null)
+                onInteractionComplete.Invoke();
+        }
+        else
+        {
+            if(onSubsequentInteraction != null)
+                onSubsequentInteraction.Invoke();
+        }
     }
 }

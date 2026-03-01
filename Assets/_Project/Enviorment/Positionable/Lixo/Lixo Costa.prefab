@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6300121177424027116}
   - component: {fileID: 1212240344349254306}
   - component: {fileID: 13168002046577902}
+  - component: {fileID: 735678251351954661}
   m_Layer: 0
   m_Name: Lixo Costa
   m_TagString: Untagged
@@ -231,7 +232,7 @@ Animator:
   m_GameObject: {fileID: 3606532113432852349}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c721950a7456fcf4e9c5482b7f0aa60e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 72985a8ecaae8c748afa5c3e9ace8d03, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -272,6 +273,52 @@ MonoBehaviour:
   originalAnimDuration: 1
   loadingBallAnim: {fileID: 1711095964173123071}
   loadingObject: {fileID: 7045184182775671687}
+  onInteractionComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 735678251351954661}
+        m_TargetAssemblyTypeName: Lixo, Assembly-CSharp
+        m_MethodName: OnFirstInteraction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSubsequentInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 735678251351954661}
+        m_TargetAssemblyTypeName: Lixo, Assembly-CSharp
+        m_MethodName: OnSubsequentInteraction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  reusable: 0
+--- !u!114 &735678251351954661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3606532113432852349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d76e4c4d7da06914cb2b4b5a37cd565f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Lixo
+  hasFood: 1
+  spriteRenderer: {fileID: 7801642544093154725}
+  searchedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &7045184182775671687
 GameObject:
   m_ObjectHideFlags: 0
