@@ -20,6 +20,7 @@ public class BeatEmUpController : MonoBehaviour
     private bool isJumping = false;
     private float verticalVelocity = 0;
     private float lastDirectionX = 1f;
+    private InteractableItem currentItem;
 
     void Awake()
     {
@@ -46,7 +47,6 @@ public class BeatEmUpController : MonoBehaviour
         }
 
         anim.SetBool("isJumping", isJumping);
-        Debug.Log($"Move Input: {moveInput}, Vertical Velocity: {verticalVelocity}, Is Jumping: {isJumping}");
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -62,6 +62,19 @@ public class BeatEmUpController : MonoBehaviour
         }
     }
 
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.started && currentItem != null)
+        {
+            currentItem.StartInteracting();
+        }
+        
+        if (context.canceled && currentItem != null)
+        {
+            currentItem.CancelInteraction();
+        }
+    }
+
     void FixedUpdate()
     {
         Vector2 velocity = new Vector2(
@@ -70,6 +83,11 @@ public class BeatEmUpController : MonoBehaviour
         );
 
         rb.linearVelocity = velocity;
+    }
+
+    public void SetCurrentItem(InteractableItem item)
+    {
+        currentItem = item;
     }
 
     private IEnumerator JumpRoutine()
