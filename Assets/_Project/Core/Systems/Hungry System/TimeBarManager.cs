@@ -9,7 +9,7 @@ public class TimeBarManager : MonoBehaviour
     
     [Header("Configurações de Tempo")]
     public float maxTime = 60f;
-    private float currentTime;
+    public float currentTime;
     
     [Header("Eventos por Porcentagem")]
     public UnityEvent onHalfTime; // Evento em 50%
@@ -19,7 +19,7 @@ public class TimeBarManager : MonoBehaviour
     private bool triggeredHalf = false;
     private bool triggeredCritical = false;
 
-    void Start()
+    void Awake()
     {
         currentTime = maxTime;
         timeSlider.maxValue = maxTime;

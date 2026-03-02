@@ -30,6 +30,7 @@ public class MonsterAI : MonoBehaviour
     private float lookDirection = 1f;
 
     private SpriteRenderer spriteRenderer;
+    public TimeBarManager hungerSystem;
 
     private void Start()
     {
@@ -46,29 +47,40 @@ public class MonsterAI : MonoBehaviour
     private void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float hungerPercent = hungerSystem.timeSlider.value / hungerSystem.maxTime;
 
-        switch(currentState)
+        visionRange = Mathf.Lerp(8f, 4f, hungerPercent); // Range aumenta conforme fome cai
+        chaseSpeed = Mathf.Lerp(5f, 3f, hungerPercent);  // Fica mais rápido
+
+        if (hungerPercent < 0.2f && currentState == MonsterState.Patrolling)
         {
-            case MonsterState.Patrolling:
-                MovePatrol();
-                if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
-                {
-                    currentState = MonsterState.Chasing;
-                }
-                break;
-
-            case MonsterState.Chasing:
-                if (!CanSeeAndAttackPlayer())
-                {
-                    currentState = MonsterState.Patrolling;
+            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * 0.5f * Time.deltaTime);
+        }
+        else
+        {
+            switch (currentState)
+            {
+                case MonsterState.Patrolling:
+                    MovePatrol();
+                    if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
+                    {
+                        currentState = MonsterState.Chasing;
+                    }
                     break;
-                }
-                MoveChase();
-                if (distanceToPlayer > stopChasingRange)
-                {
-                    currentState = MonsterState.Patrolling;
-                }
-                break;
+
+                case MonsterState.Chasing:
+                    if (!CanSeeAndAttackPlayer())
+                    {
+                        currentState = MonsterState.Patrolling;
+                        break;
+                    }
+                    MoveChase();
+                    if (distanceToPlayer > stopChasingRange)
+                    {
+                        currentState = MonsterState.Patrolling;
+                    }
+                    break;
+            }
         }
         HandleVisualFeedback(10);
     }
@@ -123,6 +135,7 @@ public class MonsterAI : MonoBehaviour
     {
         if (collision.CompareTag("Player") && CanSeeAndAttackPlayer())
         {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somGameOver);
             RestartLevel();
         }
     }
