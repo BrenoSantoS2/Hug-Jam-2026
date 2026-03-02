@@ -59,6 +59,8 @@ public class esconderijos : MonoBehaviour
 
         if (DialogueSystem.Instance != null)
             DialogueSystem.Instance.ShowDialogue(DialogueType.HidingEnter);
+
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.somEsconder);
     }
 
     private void Exit()

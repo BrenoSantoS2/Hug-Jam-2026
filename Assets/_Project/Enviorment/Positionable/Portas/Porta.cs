@@ -45,6 +45,7 @@ public class Porta : MonoBehaviour
     {
         if (hasResponse && !hasBeenAnswered)
         {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somPortaAbrindo);
             if (sequenceCoroutine != null)
                 StopCoroutine(sequenceCoroutine);
 

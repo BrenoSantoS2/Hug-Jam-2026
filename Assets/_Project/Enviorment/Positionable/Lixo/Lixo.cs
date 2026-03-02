@@ -31,6 +31,8 @@ public class Lixo : MonoBehaviour
     {
         if (hasFood && !wasSearched)
         {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somLixo);
+
             wasSearched = true;
             GameManager.Instance.AddFood();
             DialogueSystem.Instance.ShowDialogue(DialogueType.TrashFoundFood);
