@@ -106,6 +106,11 @@ public class Porta : MonoBehaviour
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somPortaFechando);
         }
 
+        if (GameManager.Instance != null)
+            GameManager.Instance.AddFood();
+
+        if (SoundManager.Instance != null && SoundManager.Instance.somComidaEncontrada != null)
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somComidaEncontrada);
 
         Time.timeScale = 1f;
         sequenceCoroutine = null;
