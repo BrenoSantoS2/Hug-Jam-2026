@@ -11,6 +11,7 @@ public class MonsterAI : MonoBehaviour
     public Transform pointA;
     public Transform pointB;
     public float speed = 2f;
+    private float basePatrolSpeed;
     private Vector3 targetDestination;
     private Vector3 originalWorldScale;
 
@@ -31,6 +32,12 @@ public class MonsterAI : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     public TimeBarManager hungerSystem;
+    
+    private bool hasBeenSeenFirstTime = false;
+    
+    [Header("Sons")]
+    public float crawlSoundInterval = 0.4f;
+    private float lastCrawlSoundTime = 0f;
 
     private void Start()
     {
@@ -38,6 +45,8 @@ public class MonsterAI : MonoBehaviour
         originalColor = spriteRenderer.color;
         originalWorldScale = transform.localScale;
         targetDestination = pointA.position;
+
+        basePatrolSpeed = speed;
 
         if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
         if (player != null)
@@ -49,38 +58,38 @@ public class MonsterAI : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         float hungerPercent = hungerSystem.timeSlider.value / hungerSystem.maxTime;
 
-        visionRange = Mathf.Lerp(8f, 4f, hungerPercent); // Range aumenta conforme fome cai
-        chaseSpeed = Mathf.Lerp(5f, 3f, hungerPercent);  // Fica mais rápido
+        visionRange = Mathf.Lerp(8f, 4f, hungerPercent);
 
-        if (hungerPercent < 0.2f && currentState == MonsterState.Patrolling)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * 0.5f * Time.deltaTime);
-        }
-        else
-        {
-            switch (currentState)
-            {
-                case MonsterState.Patrolling:
-                    MovePatrol();
-                    if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
-                    {
-                        currentState = MonsterState.Chasing;
-                    }
-                    break;
+        speed = Mathf.Lerp(basePatrolSpeed, basePatrolSpeed * 1.5f, 1f - hungerPercent);
 
-                case MonsterState.Chasing:
-                    if (!CanSeeAndAttackPlayer())
+        switch (currentState)
+        {
+            case MonsterState.Patrolling:
+                MovePatrol();
+                if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
+                {
+                    if (!hasBeenSeenFirstTime)
                     {
-                        currentState = MonsterState.Patrolling;
-                        break;
+                        if (DialogueSystem.Instance != null)
+                            DialogueSystem.Instance.ShowDialogue(DialogueType.SawMonsterFirst);
+                        hasBeenSeenFirstTime = true;
                     }
-                    MoveChase();
-                    if (distanceToPlayer > stopChasingRange)
-                    {
-                        currentState = MonsterState.Patrolling;
-                    }
+                    currentState = MonsterState.Chasing;
+                }
+                break;
+
+            case MonsterState.Chasing:
+                if (!CanSeeAndAttackPlayer())
+                {
+                    currentState = MonsterState.Patrolling;
                     break;
-            }
+                }
+                MoveChase();
+                if (distanceToPlayer > stopChasingRange)
+                {
+                    currentState = MonsterState.Patrolling;
+                }
+                break;
         }
         HandleVisualFeedback(10);
     }
@@ -93,12 +102,28 @@ public class MonsterAI : MonoBehaviour
         {
             targetDestination = targetDestination == pointA.position ? pointB.position : pointA.position;
         }
+        
+        // Som de rastejamento
+        if (Time.time - lastCrawlSoundTime >= crawlSoundInterval)
+        {
+            if (SoundManager.Instance != null && SoundManager.Instance.somMonstroRastejando != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, 0.4f);
+            lastCrawlSoundTime = Time.time;
+        }
     }
 
     void MoveChase()
     {
         if (player != null)
             transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
+        
+        // Som de rastejamento durante perseguicao
+        if (Time.time - lastCrawlSoundTime >= crawlSoundInterval)
+        {
+            if (SoundManager.Instance != null && SoundManager.Instance.somMonstroRastejando != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, 0.5f);
+            lastCrawlSoundTime = Time.time;
+        }
     }
 
     void HandleVisualFeedback(float distance)

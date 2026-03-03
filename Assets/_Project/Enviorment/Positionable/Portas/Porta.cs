@@ -71,10 +71,12 @@ public class Porta : MonoBehaviour
 
     private IEnumerator AnswerSequence()
     {
+        Time.timeScale = 0f;
+
         if (doorAnimator != null)
         {
             doorAnimator.SetTrigger("open");
-            yield return new WaitForSeconds(GetAnimationDuration("open"));
+            yield return new WaitForSecondsRealtime(GetAnimationDuration("open"));
         }
 
         if (videoCanvasGroup != null)
@@ -84,7 +86,7 @@ public class Porta : MonoBehaviour
         {
             videoPlayer.clip = videoToPlay;
             videoPlayer.Play();
-            yield return new WaitForSeconds((float)videoToPlay.length);
+            yield return new WaitForSecondsRealtime((float)videoToPlay.length);
         }
 
         if (videoCanvasGroup != null)
@@ -93,24 +95,34 @@ public class Porta : MonoBehaviour
         if (doorAnimator != null)
         {
             doorAnimator.SetTrigger("giving");
-            yield return new WaitForSeconds(GetAnimationDuration("giving"));
+            yield return new WaitForSecondsRealtime(GetAnimationDuration("giving"));
         }
 
         if (doorAnimator != null)
         {
             doorAnimator.SetTrigger("close");
-            yield return new WaitForSeconds(GetAnimationDuration("close"));
+            yield return new WaitForSecondsRealtime(GetAnimationDuration("close"));
+
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somPortaFechando);
         }
 
+        if (GameManager.Instance != null)
+            GameManager.Instance.AddFood();
+
+        if (SoundManager.Instance != null && SoundManager.Instance.somComidaEncontrada != null)
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somComidaEncontrada);
+
+        Time.timeScale = 1f;
         sequenceCoroutine = null;
     }
 
     private IEnumerator FadeInVideo()
     {
         float elapsed = 0f;
+        float realStartTime = Time.realtimeSinceStartup;
         while (elapsed < videoFadeInDuration)
         {
-            elapsed += Time.deltaTime;
+            elapsed = Time.realtimeSinceStartup - realStartTime;
             videoCanvasGroup.alpha = Mathf.Clamp01(elapsed / videoFadeInDuration);
             yield return null;
         }
@@ -120,9 +132,10 @@ public class Porta : MonoBehaviour
     private IEnumerator FadeOutVideo()
     {
         float elapsed = 0f;
+        float realStartTime = Time.realtimeSinceStartup;
         while (elapsed < videoFadeOutDuration)
         {
-            elapsed += Time.deltaTime;
+            elapsed = Time.realtimeSinceStartup - realStartTime;
             videoCanvasGroup.alpha = 1f - Mathf.Clamp01(elapsed / videoFadeOutDuration);
             yield return null;
         }

@@ -32,9 +32,11 @@ public class Lixo : MonoBehaviour
         if (hasFood && !wasSearched)
         {
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somLixo);
-
+            
             wasSearched = true;
             GameManager.Instance.AddFood();
+            
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somComidaEncontrada);
             DialogueSystem.Instance.ShowDialogue(DialogueType.TrashFoundFood);
 
             if (spriteRenderer != null)
@@ -42,6 +44,8 @@ public class Lixo : MonoBehaviour
         }
         else if (!hasFood && !wasSearched)
         {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somLixo);
+            
             wasSearched = true;
             DialogueSystem.Instance.ShowDialogue(DialogueType.TrashEmpty);
 

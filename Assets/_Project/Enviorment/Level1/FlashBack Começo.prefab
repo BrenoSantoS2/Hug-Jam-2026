@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 7675662074398728402}
   - component: {fileID: 5665919711880968596}
   m_Layer: 5
-  m_Name: FlashBack
+  m_Name: "FlashBack Come\xE7o"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,9 +210,8 @@ MonoBehaviour:
   fadeDuration: 1
   displayDuration: 2.5
   dialogueLines:
-  - "Meu estom\xE2go d\xF3i"
-  - Consigo ver o fundo da garrafa
-  - Preciso achar comida
+  - Em uma era muito muito distante
+  - "Na cidade de S\xE3o Paulo"
 --- !u!1 &8920091260492692752
 GameObject:
   m_ObjectHideFlags: 0
