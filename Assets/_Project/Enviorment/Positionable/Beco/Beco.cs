@@ -9,6 +9,7 @@ public class Beco : MonoBehaviour
 {
     [Header("Requisitos")]
     public int foodRequired = 3;
+    public bool requireAllItemsExplored = false;
 
     [Header("Cena")]
     public string nextSceneName = "";
@@ -45,7 +46,20 @@ public class Beco : MonoBehaviour
 
     public void OnInteraction()
     {
-        if (GameManager.Instance == null || GameManager.Instance.foodCollected < foodRequired)
+        if (requireAllItemsExplored)
+        {
+            int total = GameManager.Instance.GetTotalItemsCount();
+            int explored = GameManager.Instance.GetExploredItemsCount();
+            
+            // Verificar se há itens registrados E se todos foram explorados
+            if (total == 0 || explored < total)
+            {
+                DialogueSystem.Instance.ShowDialogue(DialogueType.ExplorationIncomplete);
+                Debug.Log($"Exploração incompleta! Visitou {explored}/{total} locais.");
+                return;
+            }
+        }
+        else if (GameManager.Instance == null || GameManager.Instance.foodCollected < foodRequired)
         {
             DialogueSystem.Instance.ShowDialogue(DialogueType.NotEnoughFood);
             Debug.Log($"Comida insuficiente! Tem {(GameManager.Instance != null ? GameManager.Instance.foodCollected : 0)}, precisa de {foodRequired}.");
