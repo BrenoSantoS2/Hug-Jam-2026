@@ -15,26 +15,52 @@ MonoBehaviour:
   entries:
   - type: 0
     dialogues:
-    - Caralhoooooooooo uma Feijoada
-    - Encontrei um Sanduiche de ratooo
-    - Minhoca Fritaaa
+    - Meu deus uma Feijoada
+    - Encontrei um Sanduiche pela metade
+    - Batata frita, murcha, mas serve
+    - "Dei sorte, at\xE9 que est\xE1 na validade"
+    - "Fazia tempo que eu n\xE3o comia macarr\xE3o"
+    - "Meio passado, mas ainda d\xE1 pra comer"
+    - "pode estar mordido, mas \xE9 melhor que rato frito"
+    - "O gosto n\xE3o deve estar dos melhores, mas \xE9 o que achei"
+    - "Meu deus, fazia tempo que n\xE3o achava algo de qualidade"
+    - "Incrivel como esse bolo de carne est\xE1 inteiro"
   - type: 1
     dialogues:
     - Tem porra nenhuma
-    - Caraio nada De novo
-    - "S\xF3 quero uma cumida"
+    - Caraio nada de novo
+    - "N\xE3o sobrou nem osso"
+    - "O lixeiro deve ter passado, desgra\xE7ados"
+    - Sobra nada pra gente mesmo
+    - "N\xE3o \xE9 poss\xEDvel "
+    - 'Mais vazio que meus bolsos
+
+'
+    - 'Mais vazio que meus bolsos
+
+'
+    - 'Mais vazio que meus bolsos
+
+'
+    - Os ratos chegaram primeiro
   - type: 2
     dialogues:
-    - Deixa eu me esconder do Tobias
+    - "Aquela coisa est\xE1 perto"
     - "Meio desconfort\xE1vel"
+    - "isso fede, mas \xE9 melhor que estar fora"
+    - Preciso me esconder
   - type: 3
     dialogues:
-    - "ACho que o tobias j\xE1 foi"
+    - Essa foi por pouco
     - Porra deixa eu fugir daqui
+    - Preciso me afastar antes que aquilo volte
   - type: 4
     dialogues:
-    - Me da um cumida?
+    - "Sei que n\xE3o \xE9 muito, mas espero que ajude"
+    - Boa noite senhor, tenho um pouco de comida, fique bem
+    - "Sinto muito por voc\xEA ter fome, por favor, aceite um pouco do que tenho "
   - type: 5
     dialogues:
-    - '** SAI DAQUI SEU PORRA**'
-    - '** TU TA AQUI DE NOVO MENO?! **'
+    - Tenho cara de caridade? Sai daqui Vagbundo
+    - "N\xE3o tem vergonha de perturbar n\xE3o? Vaza antes que eu chame a pol\xEDcia. "
+    - ' '

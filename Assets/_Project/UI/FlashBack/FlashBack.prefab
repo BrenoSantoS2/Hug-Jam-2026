@@ -210,9 +210,9 @@ MonoBehaviour:
   fadeDuration: 1
   displayDuration: 2.5
   dialogueLines:
-  - Em uma era muito muito distante
-  - "Na cidade de S\xE3o Paulo"
-  - Doidera
+  - "Meu estom\xE2go d\xF3i"
+  - Consigo ver o fundo da garrafa
+  - Preciso achar comida
 --- !u!1 &8920091260492692752
 GameObject:
   m_ObjectHideFlags: 0
