@@ -1,0 +1,190 @@
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class MonsterAI : MonoBehaviour
+{
+    private enum MonsterState { Patrolling, Chasing }
+    [SerializeField] private MonsterState currentState = MonsterState.Patrolling;
+
+    [Header("Configuracoes de patrulha")]
+    public Transform pointA;
+    public Transform pointB;
+    public float speed = 2f;
+    private float basePatrolSpeed;
+    private Vector3 targetDestination;
+    private Vector3 originalWorldScale;
+
+    [Header("Configurações de Perseguição")]
+    public Transform player;
+    public float chaseSpeed = 3.5f;
+    public float visionRange = 5f;
+    public float stopChasingRange = 7f;
+
+    private BeatEmUpController playerController;
+    
+    [Header("Deteccao do jogador")]
+    public float pulseDistance = 5f;
+    public float maxPulseFactor = 0.2f;
+    public Color alertColor = Color.red;
+    public Color originalColor;
+    private float lookDirection = 1f;
+
+    private SpriteRenderer spriteRenderer;
+    public TimeBarManager hungerSystem;
+    
+    private bool hasBeenSeenFirstTime = false;
+    
+    [Header("Sons")]
+    public float crawlSoundInterval = 0.4f;
+    private float lastCrawlSoundTime = 0f;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+        originalWorldScale = transform.localScale;
+        targetDestination = pointA.position;
+
+        basePatrolSpeed = speed;
+
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (player != null)
+            playerController = player.GetComponent<BeatEmUpController>();
+    }
+
+    private void Update()
+    {
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float hungerPercent = hungerSystem.timeSlider.value / hungerSystem.maxTime;
+
+        visionRange = Mathf.Lerp(8f, 4f, hungerPercent);
+
+        speed = Mathf.Lerp(basePatrolSpeed, basePatrolSpeed * 1.5f, 1f - hungerPercent);
+
+        switch (currentState)
+        {
+            case MonsterState.Patrolling:
+                MovePatrol();
+                if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
+                {
+                    if (!hasBeenSeenFirstTime)
+                    {
+                        if (DialogueSystem.Instance != null)
+                            DialogueSystem.Instance.ShowDialogue(DialogueType.SawMonsterFirst);
+                        hasBeenSeenFirstTime = true;
+                    }
+                    currentState = MonsterState.Chasing;
+                }
+                break;
+
+            case MonsterState.Chasing:
+                if (!CanSeeAndAttackPlayer())
+                {
+                    currentState = MonsterState.Patrolling;
+                    break;
+                }
+                MoveChase();
+                if (distanceToPlayer > stopChasingRange)
+                {
+                    currentState = MonsterState.Patrolling;
+                }
+                break;
+        }
+        HandleVisualFeedback(10);
+    }
+
+    void MovePatrol()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, targetDestination, speed * Time.deltaTime);
+
+        if(Vector3.Distance(transform.position, targetDestination) < 0.1f)
+        {
+            targetDestination = targetDestination == pointA.position ? pointB.position : pointA.position;
+        }
+        
+        // Som de rastejamento
+        if (Time.time - lastCrawlSoundTime >= crawlSoundInterval)
+        {
+            if (SoundManager.Instance != null && SoundManager.Instance.somMonstroRastejando != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, 0.4f);
+            lastCrawlSoundTime = Time.time;
+        }
+    }
+
+    void MoveChase()
+    {
+        if (player != null)
+            transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
+        
+        // Som de rastejamento durante perseguicao
+        if (Time.time - lastCrawlSoundTime >= crawlSoundInterval)
+        {
+            if (SoundManager.Instance != null && SoundManager.Instance.somMonstroRastejando != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, 0.5f);
+            lastCrawlSoundTime = Time.time;
+        }
+    }
+
+    void HandleVisualFeedback(float distance)
+    {
+        Vector3 moveTarget = (currentState == MonsterState.Chasing) ? player.position : targetDestination;
+
+        float xDiff = moveTarget.x - transform.position.x;
+        if (Mathf.Abs(xDiff) > 0.01f)
+        {
+            lookDirection = (xDiff > 0) ? 1f : -1f;
+        }
+
+        float pulseValue = 0f;
+        if (distance < visionRange || currentState == MonsterState.Chasing)
+        {
+            pulseValue = Mathf.PingPong(Time.time * 5f, 1f);
+            spriteRenderer.color = Color.Lerp(originalColor, alertColor, pulseValue);
+        }
+        else
+        {
+            spriteRenderer.color = originalColor;
+        }
+
+        float scaleFactor = 1f + (pulseValue * maxPulseFactor);
+
+        transform.localScale = new Vector3(
+            originalWorldScale.x * lookDirection * scaleFactor,
+            originalWorldScale.y * scaleFactor,
+            originalWorldScale.z
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && CanSeeAndAttackPlayer())
+        {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somGameOver);
+            RestartLevel();
+        }
+    }
+
+    void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
+    private bool CanSeeAndAttackPlayer()
+    {
+        if (player == null)
+            return false;
+        if (playerController == null)
+            return true;
+        return playerController.enabled;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, visionRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, stopChasingRange);
+    }
+}
