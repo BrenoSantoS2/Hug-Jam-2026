@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(InteractableItem))]
 public class Beco : MonoBehaviour
@@ -13,15 +15,18 @@ public class Beco : MonoBehaviour
 
     [Header("Visual")]
     public CanvasGroup fadeCanvasGroup;
-    public Animator flashbackAnimator;
     public GameObject flashbackPrefab;
+    public bool isVideo = false; 
+    public VideoPlayer videoPlayer; 
+    public CanvasGroup videoCanvasGroup; 
+    public VideoClip finalVideoClip;
 
     [Header("Timing")]
     public float fadeOutDuration = 1f;
-    public float flashbackDuration = 3f;
 
     private InteractableItem interactable;
     private Coroutine conclusionSequence;
+
 
     void Awake()
     {
@@ -40,71 +45,60 @@ public class Beco : MonoBehaviour
 
     public void OnInteraction()
     {
-        GameManager gameManager = GameManager.Instance;
-        if (gameManager == null)
+        if (GameManager.Instance == null || GameManager.Instance.foodCollected < foodRequired)
         {
-            Debug.LogError("GameManager não encontrado!");
+            DialogueSystem.Instance.ShowDialogue(DialogueType.NotEnoughFood);
+            Debug.Log($"Comida insuficiente! Tem {(GameManager.Instance != null ? GameManager.Instance.foodCollected : 0)}, precisa de {foodRequired}.");
             return;
         }
 
-        if (gameManager.foodCollected < foodRequired)
-        {
-            DialogueSystem.Instance.ShowDialogue(DialogueType.NotEnoughFood);
-            Debug.Log($"Comida insuficiente! Tem {gameManager.foodCollected}, precisa de {foodRequired}.");
-        }
-        else
-        {
-            if (conclusionSequence != null)
-                StopCoroutine(conclusionSequence);
+        if (conclusionSequence != null)
+            StopCoroutine(conclusionSequence);
 
-            conclusionSequence = StartCoroutine(ConclusionSequence());
-        }
+        conclusionSequence = StartCoroutine(ConclusionSequence());
     }
 
     private IEnumerator ConclusionSequence()
     {
+
         yield return FadeOutScreen();
 
-        if (flashbackPrefab != null)
+        if (isVideo)
         {
-            GameObject inst = Instantiate(flashbackPrefab);
+            if (videoPlayer != null && finalVideoClip != null)
+            {
+                videoPlayer.clip = finalVideoClip;
 
-            Canvas instCanvas = inst.GetComponentInChildren<Canvas>();
-            if (instCanvas != null)
-                instCanvas.sortingOrder = 10000;
+                // make sure video object is visible
+                if (videoPlayer.gameObject != null && !videoPlayer.gameObject.activeInHierarchy)
+                    videoPlayer.gameObject.SetActive(true);
 
-            yield return FadeRevealScreen();
-            yield return new WaitUntil(() => inst == null || !inst.activeInHierarchy);
-            yield return FadeOutScreen();
+                if (videoCanvasGroup != null)
+                {
+                    videoCanvasGroup.alpha = 0f;
+                    yield return StartCoroutine(FadeCanvas(videoCanvasGroup, 0f, 1f, fadeOutDuration));
+                }
+                videoPlayer.Play();
+                yield return new WaitWhile(() => videoPlayer.isPlaying);
+
+                if (videoCanvasGroup != null)
+                    yield return StartCoroutine(FadeCanvas(videoCanvasGroup, 1f, 0f, fadeOutDuration));
+            }
         }
-        else if (flashbackAnimator != null)
+        else
         {
-            yield return FadeRevealScreen();
-
-            flashbackAnimator.SetTrigger("play");
-            yield return new WaitForSeconds(flashbackDuration);
-
-            yield return FadeOutScreen();
+            if (flashbackPrefab != null)
+            {
+                GameObject inst = Instantiate(flashbackPrefab);
+                Canvas instCanvas = inst.GetComponentInChildren<Canvas>();
+                if (instCanvas != null)
+                    instCanvas.sortingOrder = 10000;
+                yield return new WaitUntil(() => inst == null || !inst.activeInHierarchy);
+            }
         }
-
         LoadNextScene();
     }
 
-    private IEnumerator FadeRevealScreen()
-    {
-        if (fadeCanvasGroup == null)
-            yield break;
-
-        float elapsed = 0f;
-        float startAlpha = fadeCanvasGroup.alpha;
-        while (elapsed < fadeOutDuration)
-        {
-            elapsed += Time.deltaTime;
-            fadeCanvasGroup.alpha = Mathf.Clamp01(1f - (elapsed / fadeOutDuration));
-            yield return null;
-        }
-        fadeCanvasGroup.alpha = 0f;
-    }
 
     private IEnumerator FadeOutScreen()
     {
@@ -119,6 +113,19 @@ public class Beco : MonoBehaviour
             yield return null;
         }
         fadeCanvasGroup.alpha = 1f;
+    }
+
+    private IEnumerator FadeCanvas(CanvasGroup cg, float start, float end, float duration)
+    {
+        if (cg == null) yield break;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            cg.alpha = Mathf.Lerp(start, end, elapsed / duration);
+            yield return null;
+        }
+        cg.alpha = end;
     }
 
     private void LoadNextScene()

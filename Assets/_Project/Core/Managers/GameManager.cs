@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     [Header("Recursos")]
     public int foodCollected = 0;
 
+    [Header("Progressão")]
+    public int currentPhase = 1;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

@@ -38,7 +38,6 @@ public class DialogueFader : MonoBehaviour
             float timer = 0;
             bool skipped = false;
 
-            // Enquanto o tempo não acabar e o jogador não clicar...
             while (timer < displayDuration && !skipped)
             {
                 timer += Time.deltaTime;

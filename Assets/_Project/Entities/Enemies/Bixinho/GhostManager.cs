@@ -8,6 +8,9 @@ public class GhostManager : MonoBehaviour
     public GameObject ghostPrefab;
     public int maxGhosts = 15;
 
+    [Header("Spawn Points")]
+    public List<Transform> spawnPoints = new List<Transform>();
+
     [Range(0f, 1f)]
     public float startSpawningAt = 0.8f;
 
@@ -19,7 +22,7 @@ public class GhostManager : MonoBehaviour
 
         if (hungerSystem == null)
         {
-            Debug.LogError("GhostManager não encontrou o TimeBarManager na cena!");
+            Debug.LogError("GhostManager nï¿½o encontrou o TimeBarManager na cena!");
         }
     }
 
@@ -39,8 +42,6 @@ public class GhostManager : MonoBehaviour
             targetGhostCount = Mathf.RoundToInt(t * maxGhosts);
         }
 
-        Debug.Log($"Fome %: {hungerPct:F2} | Fantasmas Alvo: {targetGhostCount} | Ativos: {activeGhosts.Count}");
-
         if (activeGhosts.Count < targetGhostCount)
         {
             SpawnGhost();
@@ -53,8 +54,17 @@ public class GhostManager : MonoBehaviour
 
     void SpawnGhost()
     {
-        Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        Vector3 spawnPos = playerTransform.position + (Vector3)(Random.insideUnitCircle * 8f);
+        Vector3 spawnPos;
+        if (spawnPoints != null && spawnPoints.Count > 0)
+        {
+            int idx = Random.Range(0, spawnPoints.Count);
+            spawnPos = spawnPoints[idx].position;
+        }
+        else
+        {
+            Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            spawnPos = playerTransform.position + (Vector3)(Random.insideUnitCircle * 8f);
+        }
         spawnPos.z = 0;
 
         GameObject g = Instantiate(ghostPrefab, spawnPos, Quaternion.identity);
