@@ -107,6 +107,7 @@ public enum DialogueType
     DoorAnswered,
     DoorNoResponse,
     NotEnoughFood,
+    ExplorationIncomplete,
     Hunger70,
     Hunger50,
     Hunger30,

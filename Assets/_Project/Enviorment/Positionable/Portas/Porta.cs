@@ -41,6 +41,11 @@ public class Porta : MonoBehaviour
             videoCanvasGroup.alpha = 0f;
     }
 
+    void OnEnable()
+    {
+
+    }
+
     public void OnInteraction()
     {
         if (hasResponse && !hasBeenAnswered)
@@ -108,6 +113,9 @@ public class Porta : MonoBehaviour
 
         if (GameManager.Instance != null)
             GameManager.Instance.AddFood();
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.IncrementExploredCount();
 
         if (SoundManager.Instance != null && SoundManager.Instance.somComidaEncontrada != null)
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somComidaEncontrada);

@@ -210,7 +210,9 @@ MonoBehaviour:
   fadeDuration: 1
   displayDuration: 2.5
   dialogueLines:
-  - Level 2 para o Level 3
+  - '5 sias depois '
+  - 'Sem nada para comer '
+  - E no meio de uma tempestade
 --- !u!1 &8920091260492692752
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,8 +281,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Testo
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f6e64795e8b8a6b408782b1d866a02c9, type: 2}
+  m_sharedMaterial: {fileID: -5756532454993737507, guid: f6e64795e8b8a6b408782b1d866a02c9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
