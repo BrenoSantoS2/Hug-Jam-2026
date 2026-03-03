@@ -11,6 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/UI/Credits/Credits.unity
     guid: 1e94dbed85bf71f418b6cf562251d5bf
+  - enabled: 1
+    path: Assets/_Project/Enviorment/Level1/Level1.unity
+    guid: 78e248a1c9475784388f91e901ffc8cb
+  - enabled: 1
+    path: Assets/_Project/Enviorment/Level2/Level2.unity
+    guid: 0be4e98a99e7a1842aab132fd2f64785
+  - enabled: 1
+    path: Assets/_Project/Enviorment/Level3/Level3.unity
+    guid: fe9bb6789b7c3c944a6eed704b0a3b8f
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

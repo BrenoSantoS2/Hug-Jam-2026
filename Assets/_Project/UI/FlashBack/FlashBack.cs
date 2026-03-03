@@ -40,7 +40,7 @@ public class DialogueFader : MonoBehaviour
 
             while (timer < displayDuration && !skipped)
             {
-                timer += Time.deltaTime;
+                timer += Time.unscaledDeltaTime;
 
                 if (Keyboard.current.anyKey.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame)
                 {
@@ -50,7 +50,7 @@ public class DialogueFader : MonoBehaviour
             }
 
             yield return StartCoroutine(FadeCanvas(textCanvasGroup, 1, 0));
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSecondsRealtime(0.3f); 
 
             index++;
         }
@@ -66,7 +66,7 @@ public class DialogueFader : MonoBehaviour
 
         while (elapsedTime < fadeDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             cg.alpha = Mathf.Lerp(start, end, elapsedTime / fadeDuration);
             yield return null;
         }

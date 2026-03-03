@@ -16,6 +16,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip somPassosJogador;
     public AudioClip somMonstroRastejando;
     public AudioClip somGhostCorrendo;
+    public AudioClip somChuva;
+    public AudioClip somTrovao;
     public AudioClip somEsconder;
     public AudioClip somEstáEscondido;
     public AudioClip somEntrandoBeco;

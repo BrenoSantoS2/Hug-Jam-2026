@@ -4419,7 +4419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelStarter
   fadeCanvasGroup: {fileID: 1318929103}
-  hasFlashback: 1
+  hasFlashback: 0
   flashbackPrefab: {fileID: 3362121728369876182, guid: b4a02b59d1e54d2438249ef27f9bc9da, type: 3}
   fadeOutDuration: 2
 --- !u!1001 &1500728036
@@ -6896,25 +6896,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 1080642389}
     m_Modifications:
     - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
-      propertyPath: isVideo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
       propertyPath: videoPlayer
       value: 
       objectReference: {fileID: 1129028822}
     - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
-      propertyPath: nextSceneName
-      value: Level2
-      objectReference: {fileID: 0}
-    - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
       propertyPath: fadeCanvasGroup
       value: 
       objectReference: {fileID: 2046616220}
-    - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
-      propertyPath: flashbackPrefab
-      value: 
-      objectReference: {fileID: 3362121728369876182, guid: f86976253f12d7745ae1a2cb0dc6d435, type: 3}
     - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
       propertyPath: videoCanvasGroup
       value: 
