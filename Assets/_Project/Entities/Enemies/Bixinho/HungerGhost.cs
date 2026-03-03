@@ -21,6 +21,11 @@ public class HungerGhost : MonoBehaviour
     private SpriteRenderer sr;
     private Vector3 prevPosition;
     private float originalAlpha;
+    private bool hasBeenSeen = false;
+    
+    [Header("Sons")]
+    public float runSoundInterval = 0.3f;
+    private float lastRunSoundTime = 0f;
 
     private void Start()
     {
@@ -63,6 +68,12 @@ public class HungerGhost : MonoBehaviour
         Color cc = sr.color;
         cc.a = originalAlpha;
         sr.color = cc;
+        
+        if (!hasBeenSeen && DialogueSystem.Instance != null)
+        {
+            DialogueSystem.Instance.ShowDialogue(DialogueType.SawGhostFirst);
+            hasBeenSeen = true;
+        }
     }
 
     private void Update()
@@ -84,6 +95,14 @@ public class HungerGhost : MonoBehaviour
         if (distance > stoppingDistance)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, followSpeed * Time.deltaTime);
+            
+            // Som de corrida do ghost
+            if (Time.time - lastRunSoundTime >= runSoundInterval)
+            {
+                if (SoundManager.Instance != null && SoundManager.Instance.somGhostCorrendo != null)
+                    SoundManager.Instance.PlaySFX(SoundManager.Instance.somGhostCorrendo, 0.3f);
+                lastRunSoundTime = Time.time;
+            }
         }
 
         float vOffset = Mathf.Sin(Time.time * floatFrequency) * floatAmplitude;

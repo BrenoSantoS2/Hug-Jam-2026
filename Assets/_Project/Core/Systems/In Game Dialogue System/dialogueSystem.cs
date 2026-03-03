@@ -106,6 +106,13 @@ public enum DialogueType
     HidingExit,
     DoorAnswered,
     DoorNoResponse,
-    NotEnoughFood
+    NotEnoughFood,
+    Hunger70,
+    Hunger50,
+    Hunger30,
+    Hunger10,
+    SawMonsterFirst,
+    SawGhostFirst,
+    MonologueRandom
 }
 

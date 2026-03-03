@@ -10,9 +10,15 @@ public class SoundManager : MonoBehaviour
 
     [Header("Biblioteca de Sons")]
     public AudioClip somLixo;
+    public AudioClip somComidaEncontrada;
     public AudioClip somPortaAbrindo;
-    public AudioClip somPassosMonstro;
+    public AudioClip somPortaFechando;
+    public AudioClip somPassosJogador;
+    public AudioClip somMonstroRastejando;
+    public AudioClip somGhostCorrendo;
     public AudioClip somEsconder;
+    public AudioClip somEstáEscondido;
+    public AudioClip somEntrandoBeco;
     public AudioClip somGameOver;
 
 
@@ -26,7 +32,6 @@ public class SoundManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Criar AudioSources já no Awake
         InitializeAudioSources();
     }
 
@@ -68,5 +73,27 @@ public class SoundManager : MonoBehaviour
         musicSource.clip = musicClip;
         musicSource.loop = true;
         musicSource.Play();
+    }
+
+    public void PlayLoopSFX(AudioClip clip, float volume = 1f)
+    {
+        ValidateAudioSources();
+        if (clip != null && sfxSource != null)
+        {
+            sfxSource.clip = clip;
+            sfxSource.loop = true;
+            sfxSource.volume = volume;
+            sfxSource.Play();
+        }
+    }
+
+    public void StopLoopSFX()
+    {
+        ValidateAudioSources();
+        if (sfxSource != null)
+        {
+            sfxSource.Stop();
+            sfxSource.loop = false;
+        }
     }
 }

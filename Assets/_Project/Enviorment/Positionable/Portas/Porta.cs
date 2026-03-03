@@ -71,7 +71,6 @@ public class Porta : MonoBehaviour
 
     private IEnumerator AnswerSequence()
     {
-        // Congelar tempo
         Time.timeScale = 0f;
 
         if (doorAnimator != null)
@@ -103,9 +102,11 @@ public class Porta : MonoBehaviour
         {
             doorAnimator.SetTrigger("close");
             yield return new WaitForSecondsRealtime(GetAnimationDuration("close"));
+
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somPortaFechando);
         }
 
-        // Descongelar tempo
+
         Time.timeScale = 1f;
         sequenceCoroutine = null;
     }

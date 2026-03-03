@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 public class TimeBarManager : MonoBehaviour
 {
@@ -16,9 +17,18 @@ public class TimeBarManager : MonoBehaviour
     public UnityEvent onCriticalTime;
     public UnityEvent onTimeOut;
 
+    [Header("Monólogos")]
+    public float monologueInterval = 30f;
+    private float monologueTimer = 0f;
+
     private bool triggeredHalf = false;
     private bool triggeredCritical = false;
     private bool triggeredMin = false;
+    
+    private bool triggered70 = false;
+    private bool triggered50 = false;
+    private bool triggered30 = false;
+    private bool triggered10 = false;
     
     private const float minPercent = 0.1f;
 
@@ -31,6 +41,14 @@ public class TimeBarManager : MonoBehaviour
 
     void Update()
     {
+        monologueTimer += Time.deltaTime;
+        if (monologueTimer >= monologueInterval)
+        {
+            if (DialogueSystem.Instance != null)
+                DialogueSystem.Instance.ShowDialogue(DialogueType.MonologueRandom);
+            monologueTimer = 0f;
+        }
+
         if (currentTime > maxTime * minPercent)
         {
             currentTime -= Time.deltaTime;
@@ -47,12 +65,31 @@ public class TimeBarManager : MonoBehaviour
 
     private void CheckThresholds(float pct)
     {
-        if (pct <= 50f && !triggeredHalf)
+        if (pct <= 70f && !triggered70)
+        {
+            if (DialogueSystem.Instance != null)
+                DialogueSystem.Instance.ShowDialogue(DialogueType.Hunger70);
+            triggered70 = true;
+        }
+        if (pct > 70f) triggered70 = false;
+
+        if (pct <= 50f && !triggered50)
         {
             Debug.Log("Metade do tempo atingida!");
+            if (DialogueSystem.Instance != null)
+                DialogueSystem.Instance.ShowDialogue(DialogueType.Hunger50);
             onHalfTime.Invoke();
-            triggeredHalf = true;
+            triggered50 = true;
         }
+        if (pct > 50f) triggered50 = false;
+
+        if (pct <= 30f && !triggered30)
+        {
+            if (DialogueSystem.Instance != null)
+                DialogueSystem.Instance.ShowDialogue(DialogueType.Hunger30);
+            triggered30 = true;
+        }
+        if (pct > 30f) triggered30 = false;
 
         if (pct <= 20f && !triggeredCritical)
         {
@@ -60,11 +97,14 @@ public class TimeBarManager : MonoBehaviour
             onCriticalTime.Invoke();
             triggeredCritical = true;
         }
+        if (pct > 20f) triggeredCritical = false;
 
-        if (pct <= minPercent * 100f && !triggeredMin)
+        if (pct <= minPercent * 100f && !triggered10)
         {
+            if (DialogueSystem.Instance != null)
+                DialogueSystem.Instance.ShowDialogue(DialogueType.Hunger10);
             onTimeOut.Invoke();
-            triggeredMin = true;
+            triggered10 = true;
         }
     }
 
@@ -73,8 +113,10 @@ public class TimeBarManager : MonoBehaviour
         currentTime = Mathf.Clamp(currentTime + amount, maxTime * minPercent, maxTime);
         
         float pct = (currentTime / maxTime) * 100f;
-        if (pct > 50f) triggeredHalf = false;
+        if (pct > 70f) triggered70 = false;
+        if (pct > 50f) triggered50 = false;
+        if (pct > 30f) triggered30 = false;
         if (pct > 20f) triggeredCritical = false;
-        if (pct > minPercent * 100f) triggeredMin = false;
+        if (pct > minPercent * 100f) triggered10 = false;
     }
 }

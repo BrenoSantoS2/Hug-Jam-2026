@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class esconderijos : MonoBehaviour
@@ -16,6 +17,7 @@ public class esconderijos : MonoBehaviour
     private SpriteRenderer[] playerRenderers;
     private Behaviour playerController;
     private Rigidbody2D playerRigidbody;
+    private Coroutine hideLoopCoroutine;
 
     void Awake()
     {
@@ -68,6 +70,19 @@ public class esconderijos : MonoBehaviour
             DialogueSystem.Instance.ShowDialogue(DialogueType.HidingEnter);
 
         SoundManager.Instance.PlaySFX(SoundManager.Instance.somEsconder);
+        
+        if (hideLoopCoroutine != null)
+            StopCoroutine(hideLoopCoroutine);
+        hideLoopCoroutine = StartCoroutine(StartHideLoopAfterDelay());
+    }
+
+    private IEnumerator StartHideLoopAfterDelay()
+    {
+        yield return new WaitForSeconds(0.3f);
+        if (isPlayerInside && SoundManager.Instance != null && SoundManager.Instance.somEstáEscondido != null)
+        {
+            SoundManager.Instance.PlayLoopSFX(SoundManager.Instance.somEstáEscondido, 0.5f);
+        }
     }
 
     private void Exit()
@@ -91,5 +106,9 @@ public class esconderijos : MonoBehaviour
 
         if (DialogueSystem.Instance != null)
             DialogueSystem.Instance.ShowDialogue(DialogueType.HidingExit);
+        
+        if (hideLoopCoroutine != null)
+            StopCoroutine(hideLoopCoroutine);
+        SoundManager.Instance.StopLoopSFX();
     }
 }

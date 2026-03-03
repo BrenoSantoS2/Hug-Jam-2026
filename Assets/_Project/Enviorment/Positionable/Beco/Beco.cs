@@ -52,6 +52,9 @@ public class Beco : MonoBehaviour
             return;
         }
 
+        if (SoundManager.Instance != null && SoundManager.Instance.somEntrandoBeco != null)
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.somEntrandoBeco);
+
         if (conclusionSequence != null)
             StopCoroutine(conclusionSequence);
 
@@ -60,7 +63,6 @@ public class Beco : MonoBehaviour
 
     private IEnumerator ConclusionSequence()
     {
-        // Congelar tempo
         Time.timeScale = 0f;
 
         yield return FadeOutScreen();
@@ -71,7 +73,6 @@ public class Beco : MonoBehaviour
             {
                 videoPlayer.clip = finalVideoClip;
 
-                // make sure video object is visible
                 if (videoPlayer.gameObject != null && !videoPlayer.gameObject.activeInHierarchy)
                     videoPlayer.gameObject.SetActive(true);
 
@@ -81,7 +82,7 @@ public class Beco : MonoBehaviour
                     yield return StartCoroutine(FadeCanvas(videoCanvasGroup, 0f, 1f, fadeOutDuration));
                 }
                 videoPlayer.Play();
-                // Esperar vídeo com timeScale = 0
+
                 float startTime = Time.realtimeSinceStartup;
                 while (videoPlayer.isPlaying && (Time.realtimeSinceStartup - startTime) < (float)finalVideoClip.length)
                     yield return null;
@@ -102,7 +103,6 @@ public class Beco : MonoBehaviour
             }
         }
 
-        // Descongelar tempo
         Time.timeScale = 1f;
         LoadNextScene();
     }

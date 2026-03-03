@@ -32,6 +32,12 @@ public class MonsterAI : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     public TimeBarManager hungerSystem;
+    
+    private bool hasBeenSeenFirstTime = false;
+    
+    [Header("Sons")]
+    public float crawlSoundInterval = 0.4f;
+    private float lastCrawlSoundTime = 0f;
 
     private void Start()
     {
@@ -62,6 +68,12 @@ public class MonsterAI : MonoBehaviour
                 MovePatrol();
                 if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
                 {
+                    if (!hasBeenSeenFirstTime)
+                    {
+                        if (DialogueSystem.Instance != null)
+                            DialogueSystem.Instance.ShowDialogue(DialogueType.SawMonsterFirst);
+                        hasBeenSeenFirstTime = true;
+                    }
                     currentState = MonsterState.Chasing;
                 }
                 break;
@@ -90,12 +102,28 @@ public class MonsterAI : MonoBehaviour
         {
             targetDestination = targetDestination == pointA.position ? pointB.position : pointA.position;
         }
+        
+        // Som de rastejamento
+        if (Time.time - lastCrawlSoundTime >= crawlSoundInterval)
+        {
+            if (SoundManager.Instance != null && SoundManager.Instance.somMonstroRastejando != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, 0.4f);
+            lastCrawlSoundTime = Time.time;
+        }
     }
 
     void MoveChase()
     {
         if (player != null)
             transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
+        
+        // Som de rastejamento durante perseguicao
+        if (Time.time - lastCrawlSoundTime >= crawlSoundInterval)
+        {
+            if (SoundManager.Instance != null && SoundManager.Instance.somMonstroRastejando != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, 0.5f);
+            lastCrawlSoundTime = Time.time;
+        }
     }
 
     void HandleVisualFeedback(float distance)
