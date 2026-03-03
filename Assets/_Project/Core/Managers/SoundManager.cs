@@ -4,12 +4,11 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    [Header("Canais de Áudio")]
-    [SerializeField] private AudioSource musicSource; // Para trilha sonora (Loop)
-    [SerializeField] private AudioSource sfxSource; // Para efeitos sonoros (one shot)
+    [Header("Canais de ï¿½udio")]
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
 
     [Header("Biblioteca de Sons")]
-    // Adicionar os clipes de som aqui para facil acesso
     public AudioClip somLixo;
     public AudioClip somPortaAbrindo;
     public AudioClip somPassosMonstro;
@@ -26,21 +25,45 @@ public class SoundManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Criar AudioSources jÃ¡ no Awake
+        InitializeAudioSources();
     }
 
-    // Toca efeito sonoro uma única vez
+    private void InitializeAudioSources()
+    {
+        if (musicSource == null)
+            musicSource = gameObject.AddComponent<AudioSource>();
+        if (sfxSource == null)
+            sfxSource = gameObject.AddComponent<AudioSource>();
+
+        musicSource.loop = false;
+        musicSource.playOnAwake = false;
+        sfxSource.playOnAwake = false;
+    }
+
+    private void ValidateAudioSources()
+    {
+        if (musicSource == null || sfxSource == null)
+            InitializeAudioSources();
+    }
     public void PlaySFX(AudioClip clip, float volume = 1f)
     {
-        if(clip != null)
+        ValidateAudioSources();
+        if (clip != null && sfxSource != null)
         {
             sfxSource.PlayOneShot(clip, volume);
         }
     }
 
-    // Toca ou troca a música de fundo (em loop)
     public void PlayMusic(AudioClip musicClip)
     {
-        if (musicSource.clip == musicClip) return;
+        ValidateAudioSources();
+        if (musicSource == null || musicClip == null)
+            return;
+
+        if (musicSource.clip == musicClip)
+            return;
 
         musicSource.clip = musicClip;
         musicSource.loop = true;

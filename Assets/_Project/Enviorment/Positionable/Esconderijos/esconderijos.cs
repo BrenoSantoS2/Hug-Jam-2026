@@ -15,6 +15,7 @@ public class esconderijos : MonoBehaviour
     private GameObject player;
     private SpriteRenderer[] playerRenderers;
     private Behaviour playerController;
+    private Rigidbody2D playerRigidbody;
 
     void Awake()
     {
@@ -44,6 +45,12 @@ public class esconderijos : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         if (player != null)
         {
+            playerRigidbody = player.GetComponent<Rigidbody2D>();
+            if (playerRigidbody != null)
+                playerRigidbody.linearVelocity = Vector2.zero;
+
+            player.transform.position = transform.position + exitOffset;
+
             playerRenderers = player.GetComponentsInChildren<SpriteRenderer>();
             foreach (var r in playerRenderers)
                 r.enabled = false;

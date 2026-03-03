@@ -60,6 +60,8 @@ public class Beco : MonoBehaviour
 
     private IEnumerator ConclusionSequence()
     {
+        // Congelar tempo
+        Time.timeScale = 0f;
 
         yield return FadeOutScreen();
 
@@ -79,7 +81,10 @@ public class Beco : MonoBehaviour
                     yield return StartCoroutine(FadeCanvas(videoCanvasGroup, 0f, 1f, fadeOutDuration));
                 }
                 videoPlayer.Play();
-                yield return new WaitWhile(() => videoPlayer.isPlaying);
+                // Esperar vídeo com timeScale = 0
+                float startTime = Time.realtimeSinceStartup;
+                while (videoPlayer.isPlaying && (Time.realtimeSinceStartup - startTime) < (float)finalVideoClip.length)
+                    yield return null;
 
                 if (videoCanvasGroup != null)
                     yield return StartCoroutine(FadeCanvas(videoCanvasGroup, 1f, 0f, fadeOutDuration));
@@ -96,6 +101,9 @@ public class Beco : MonoBehaviour
                 yield return new WaitUntil(() => inst == null || !inst.activeInHierarchy);
             }
         }
+
+        // Descongelar tempo
+        Time.timeScale = 1f;
         LoadNextScene();
     }
 
@@ -106,9 +114,10 @@ public class Beco : MonoBehaviour
             yield break;
 
         float elapsed = 0f;
+        float realStartTime = Time.realtimeSinceStartup;
         while (elapsed < fadeOutDuration)
         {
-            elapsed += Time.deltaTime;
+            elapsed = Time.realtimeSinceStartup - realStartTime;
             fadeCanvasGroup.alpha = Mathf.Clamp01(elapsed / fadeOutDuration);
             yield return null;
         }
@@ -119,9 +128,10 @@ public class Beco : MonoBehaviour
     {
         if (cg == null) yield break;
         float elapsed = 0f;
+        float realStartTime = Time.realtimeSinceStartup;
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed = Time.realtimeSinceStartup - realStartTime;
             cg.alpha = Mathf.Lerp(start, end, elapsed / duration);
             yield return null;
         }

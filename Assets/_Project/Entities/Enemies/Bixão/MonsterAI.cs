@@ -11,6 +11,7 @@ public class MonsterAI : MonoBehaviour
     public Transform pointA;
     public Transform pointB;
     public float speed = 2f;
+    private float basePatrolSpeed;
     private Vector3 targetDestination;
     private Vector3 originalWorldScale;
 
@@ -39,6 +40,8 @@ public class MonsterAI : MonoBehaviour
         originalWorldScale = transform.localScale;
         targetDestination = pointA.position;
 
+        basePatrolSpeed = speed;
+
         if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
         if (player != null)
             playerController = player.GetComponent<BeatEmUpController>();
@@ -49,38 +52,32 @@ public class MonsterAI : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         float hungerPercent = hungerSystem.timeSlider.value / hungerSystem.maxTime;
 
-        visionRange = Mathf.Lerp(8f, 4f, hungerPercent); // Range aumenta conforme fome cai
-        chaseSpeed = Mathf.Lerp(5f, 3f, hungerPercent);  // Fica mais rápido
+        visionRange = Mathf.Lerp(8f, 4f, hungerPercent);
 
-        if (hungerPercent < 0.2f && currentState == MonsterState.Patrolling)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * 0.5f * Time.deltaTime);
-        }
-        else
-        {
-            switch (currentState)
-            {
-                case MonsterState.Patrolling:
-                    MovePatrol();
-                    if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
-                    {
-                        currentState = MonsterState.Chasing;
-                    }
-                    break;
+        speed = Mathf.Lerp(basePatrolSpeed, basePatrolSpeed * 1.5f, 1f - hungerPercent);
 
-                case MonsterState.Chasing:
-                    if (!CanSeeAndAttackPlayer())
-                    {
-                        currentState = MonsterState.Patrolling;
-                        break;
-                    }
-                    MoveChase();
-                    if (distanceToPlayer > stopChasingRange)
-                    {
-                        currentState = MonsterState.Patrolling;
-                    }
+        switch (currentState)
+        {
+            case MonsterState.Patrolling:
+                MovePatrol();
+                if (distanceToPlayer < visionRange && CanSeeAndAttackPlayer())
+                {
+                    currentState = MonsterState.Chasing;
+                }
+                break;
+
+            case MonsterState.Chasing:
+                if (!CanSeeAndAttackPlayer())
+                {
+                    currentState = MonsterState.Patrolling;
                     break;
-            }
+                }
+                MoveChase();
+                if (distanceToPlayer > stopChasingRange)
+                {
+                    currentState = MonsterState.Patrolling;
+                }
+                break;
         }
         HandleVisualFeedback(10);
     }

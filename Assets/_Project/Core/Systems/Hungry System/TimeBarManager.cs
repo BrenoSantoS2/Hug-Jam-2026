@@ -12,12 +12,15 @@ public class TimeBarManager : MonoBehaviour
     public float currentTime;
     
     [Header("Eventos por Porcentagem")]
-    public UnityEvent onHalfTime; // Evento em 50%
-    public UnityEvent onCriticalTime; // Evento em 20%
-    public UnityEvent onTimeOut; // Evento em 0%
+    public UnityEvent onHalfTime;
+    public UnityEvent onCriticalTime;
+    public UnityEvent onTimeOut;
 
     private bool triggeredHalf = false;
     private bool triggeredCritical = false;
+    private bool triggeredMin = false;
+    
+    private const float minPercent = 0.1f;
 
     void Awake()
     {
@@ -28,9 +31,12 @@ public class TimeBarManager : MonoBehaviour
 
     void Update()
     {
-        if (currentTime > 0)
+        if (currentTime > maxTime * minPercent)
         {
             currentTime -= Time.deltaTime;
+            if (currentTime < maxTime * minPercent)
+                currentTime = maxTime * minPercent;
+
             timeSlider.value = currentTime;
 
             float percentage = (currentTime / maxTime) * 100f;
@@ -55,17 +61,20 @@ public class TimeBarManager : MonoBehaviour
             triggeredCritical = true;
         }
 
-        if (pct <= 0)
+        if (pct <= minPercent * 100f && !triggeredMin)
         {
             onTimeOut.Invoke();
+            triggeredMin = true;
         }
     }
 
     public void AddTime(float amount)
     {
-        currentTime = Mathf.Clamp(currentTime + amount, 0, maxTime);
+        currentTime = Mathf.Clamp(currentTime + amount, maxTime * minPercent, maxTime);
         
-        if ((currentTime / maxTime) * 100f > 50f) triggeredHalf = false;
-        if ((currentTime / maxTime) * 100f > 20f) triggeredCritical = false;
+        float pct = (currentTime / maxTime) * 100f;
+        if (pct > 50f) triggeredHalf = false;
+        if (pct > 20f) triggeredCritical = false;
+        if (pct > minPercent * 100f) triggeredMin = false;
     }
 }

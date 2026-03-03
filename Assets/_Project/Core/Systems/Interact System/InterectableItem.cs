@@ -11,6 +11,10 @@ public class InteractableItem : MonoBehaviour
     [Header("Referências")]
     public Animator loadingBallAnim;
     public GameObject loadingObject;
+    
+    [Header("UI de Interação")]
+    public GameObject keyPromptPrefab;
+    private GameObject keyPromptInstance;
 
     [Header("Eventos")]
     public UnityEvent onInteractionComplete;
@@ -45,6 +49,23 @@ public class InteractableItem : MonoBehaviour
                 player.SetCurrentItem(this);
                 playerAnim = other.GetComponent<Animator>();
             }
+
+            if (keyPromptPrefab != null && keyPromptInstance == null)
+            {
+                keyPromptInstance = Instantiate(keyPromptPrefab, transform);
+            }
+            ToggleKeyPrompt(true);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = true;
+            BeatEmUpController player = other.GetComponent<BeatEmUpController>();
+            if (player != null)
+                player.SetCurrentItem(this);
         }
     }
 
@@ -61,17 +82,18 @@ public class InteractableItem : MonoBehaviour
             }
             
             CancelInteraction();
+            ToggleKeyPrompt(false);
         }
     }
 
     public void StartInteracting()
     {
-        if (isPlayerNearby && !isInteracting)
+        if (!isInteracting)
         {
             interactionCoroutine = StartCoroutine(InteractionRoutine());
+            ToggleKeyPrompt(false);
         }
     }
-
     public void CancelInteraction()
     {
         if (isInteracting)
@@ -89,12 +111,21 @@ public class InteractableItem : MonoBehaviour
                 itemAnim.SetBool("isInteracting", false);
             }
         }
+        ToggleKeyPrompt(false);
+    }
+
+    private void ToggleKeyPrompt(bool show)
+    {
+        if (keyPromptInstance == null)
+            return;
+        keyPromptInstance.SetActive(show);
     }
 
     private IEnumerator InteractionRoutine()
     {
         isInteracting = true;
         loadingObject.SetActive(true);
+        ToggleKeyPrompt(false);
 
         loadingBallAnim.speed = originalAnimDuration / interactionTime;
         loadingBallAnim.Play("Loading", -1, 0f);
@@ -115,6 +146,9 @@ public class InteractableItem : MonoBehaviour
             itemAnim.SetBool("isInteracting", false);
 
         interactionCount++;
+
+        if (isPlayerNearby)
+            ToggleKeyPrompt(true);
 
         if (interactionCount == 1 || reusable)
         {
