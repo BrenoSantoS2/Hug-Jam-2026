@@ -17,6 +17,8 @@ public class InteractableItem : MonoBehaviour
     private GameObject keyPromptInstance;
 
     [Header("Eventos")]
+    public UnityEvent onInteractionStart;
+    public UnityEvent onInteractionCanceled;
     public UnityEvent onInteractionComplete;
     public UnityEvent onSubsequentInteraction;
 
@@ -90,6 +92,9 @@ public class InteractableItem : MonoBehaviour
     {
         if (!isInteracting)
         {
+            if (onInteractionStart != null)
+                onInteractionStart.Invoke();
+
             interactionCoroutine = StartCoroutine(InteractionRoutine());
             ToggleKeyPrompt(false);
         }
@@ -110,6 +115,9 @@ public class InteractableItem : MonoBehaviour
                 playerAnim.SetBool("isInteracting", false);
                 itemAnim.SetBool("isInteracting", false);
             }
+
+            if (onInteractionCanceled != null)
+                onInteractionCanceled.Invoke();
         }
         ToggleKeyPrompt(false);
     }

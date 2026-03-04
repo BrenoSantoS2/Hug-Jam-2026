@@ -21,6 +21,7 @@ public class Porta : MonoBehaviour
     [FormerlySerializedAs("videoToPlay")]
     public VideoClip firstVideoClip;
     public VideoClip secondLoopVideoClip;
+    public AudioClip secondVideoAudio;
 
     [Header("Timing")]
     public float secondVideoLoopDuration = 3f;
@@ -66,6 +67,11 @@ public class Porta : MonoBehaviour
         if (hasResponse && !hasBeenAnswered)
         {
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somPortaAbrindo);
+            
+            // Marcar como explorada imediatamente
+            if (GameManager.Instance != null)
+                GameManager.Instance.IncrementExploredCount();
+            
             if (sequenceCoroutine != null)
                 StopCoroutine(sequenceCoroutine);
 
@@ -77,6 +83,10 @@ public class Porta : MonoBehaviour
         }
         else if (!hasResponse && !hasBeenAnswered)
         {
+            // Marcar como explorada mesmo sem resposta
+            if (GameManager.Instance != null)
+                GameManager.Instance.IncrementExploredCount();
+            
             if (DialogueSystem.Instance != null)
                 DialogueSystem.Instance.ShowDialogue(DialogueType.DoorNoResponse);
             hasBeenAnswered = true;
@@ -118,6 +128,9 @@ public class Porta : MonoBehaviour
                 videoPlayer.isLooping = true;
                 videoPlayer.Play();
 
+                if (secondVideoAudio != null && SoundManager.Instance != null)
+                    SoundManager.Instance.PlaySFX(secondVideoAudio, 1f);
+
                 Coroutine textCoroutine = null;
                 if (middleTextCanvasGroup != null)
                     textCoroutine = StartCoroutine(PlayMiddleTextSequence());
@@ -149,9 +162,6 @@ public class Porta : MonoBehaviour
 
         if (GameManager.Instance != null)
             GameManager.Instance.AddFood();
-
-        if (GameManager.Instance != null)
-            GameManager.Instance.IncrementExploredCount();
 
         if (SoundManager.Instance != null && SoundManager.Instance.somComidaEncontrada != null)
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somComidaEncontrada);

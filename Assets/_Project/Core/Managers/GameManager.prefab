@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4336695694299742816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1390187166497918572}
+  - component: {fileID: 202440299721807002}
+  - component: {fileID: 996534036318470293}
+  - component: {fileID: 7088104929569868212}
+  - component: {fileID: 2845397425184723059}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1390187166497918572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336695694299742816}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.61035, y: 0.48591, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &202440299721807002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336695694299742816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12438eb15cb4ab41ba4a7795c6b3fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  foodCollected: 0
+  currentPhase: 1
+--- !u!114 &996534036318470293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336695694299742816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bf9a42f3c5ef542a62bef83df7eb4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  musicSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  loopSfxSource: {fileID: 0}
+  ambienceLoopSource: {fileID: 0}
+  interactionLoopSource: {fileID: 0}
+  volumeMaster: 0.6
+  volumeMusica: 0.7
+  volumeSFX: 0.6
+  volumeLoops: 0.8
+  volumeAmbiente: 0.4
+  volumeInteracao: 0.7
+  musicaPrincipal: {fileID: 8300000, guid: e4047037aae9cf34eac8bff8ae54f543, type: 3}
+  somLixo: {fileID: 8300000, guid: 52e9faf4538d2a34baa0052f30a7fcdd, type: 3}
+  somRevirandoLixo: {fileID: 8300000, guid: 4c85ba02d94ce5640b5e456fe92cf919, type: 3}
+  somComidaEncontrada: {fileID: 8300000, guid: b9bd5f23607f47a4185f385cb903fe1f, type: 3}
+  somPortaAbrindo: {fileID: 8300000, guid: cdfe4ea0caddae24893be8c546930273, type: 3}
+  somPortaFechando: {fileID: 8300000, guid: d14d18d31962cfd42bbaa1a48c8b6438, type: 3}
+  somPassosJogador: {fileID: 8300000, guid: d810733b013a4a143b337f3ffad6b08a, type: 3}
+  somMonstroRastejando: {fileID: 8300000, guid: b48dc4cc3faf24d4ba50ccf35c2da740, type: 3}
+  somMonstroViuJogador: {fileID: 8300000, guid: 6cd6c7a8780243c41b501d8c0bcd3e68, type: 3}
+  somGhostCorrendo: {fileID: 0}
+  somChuva: {fileID: 8300000, guid: 5bcb3e9b66f362b4e8c195b4b70b871a, type: 3}
+  somTrovao: {fileID: 8300000, guid: 212bf653ab070654b85e7c6396039361, type: 3}
+  somEsconder: {fileID: 8300000, guid: 8f2d4ab531e2d0f4494240f288ffc077, type: 3}
+  "somEst\xE1Escondido": {fileID: 8300000, guid: 204e8dcc7b9ef7941a7a37202f1898ab, type: 3}
+  somEntrandoBeco: {fileID: 8300000, guid: 4e0171330c7b2c54aa66e14c2da2cd28, type: 3}
+  somGameOver: {fileID: 8300000, guid: 6cd6c7a8780243c41b501d8c0bcd3e68, type: 3}
+  somBotao: {fileID: 0}
+--- !u!114 &7088104929569868212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336695694299742816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bac1f3fcf0ccf44bb11580cef443dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostManager
+  hungerSystem: {fileID: 0}
+  ghostPrefab: {fileID: 2926890520170471331, guid: 679f3e382ea1fb945abc9bf4d50076eb, type: 3}
+  maxGhosts: 15
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  startSpawningAt: 0.8
+--- !u!114 &2845397425184723059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336695694299742816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b7f37ae79dad84698765fe83e0f10e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseManager
+  pausePanel: {fileID: 0}
+  isPaused: 0
