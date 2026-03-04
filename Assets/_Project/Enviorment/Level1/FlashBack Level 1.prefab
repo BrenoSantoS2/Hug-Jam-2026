@@ -210,8 +210,9 @@ MonoBehaviour:
   fadeDuration: 1
   displayDuration: 2.5
   dialogueLines:
-  - 3 dias depois
-  - Em um dia de Garoa
+  - 3 dias depois...
+  - Essa cidade volta a me castigar com essa chuva!
+  - Mas eu preciso comer...
 --- !u!1 &8920091260492692752
 GameObject:
   m_ObjectHideFlags: 0

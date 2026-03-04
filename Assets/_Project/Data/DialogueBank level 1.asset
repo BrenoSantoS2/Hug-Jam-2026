@@ -15,33 +15,63 @@ MonoBehaviour:
   entries:
   - type: 0
     dialogues:
-    - Uma feijoada!!
-    - "Esta Mucho, mas d\xE1 pra comer"
-    - "Um sandu\xEDche pela metade, melhor que rato frito"
-    - Tive sorte, a marmita ta quase inteira!
+    - Quem diriaaa uma feijoada!!
+    - "Ta podi, mas d\xE1 pra comer"
+    - "Um sandu\xEDche meio comida, melhor que rato frito"
+    - Tive sorte, a marmita ta quase inteira!!
   - type: 1
     dialogues:
-    - 'nada, os lixeiros devem ter passado '
-    - Podre, poderiam ao menos separar a comida do resto
-    - Sobra nada para gente
-    - Mais vazio que meus bolsos
+    - 'Tem nada, os lixeiros devem ter levado tudo. '
+    - Poderiam ao menos separar a comida das outras coisas.
+    - Sobra nada!
+    - "Mais vazio que o cora\xE7\xE3o daquela senhora que me xingou ontem!"
   - type: 2
     dialogues:
-    - Preciso me esconder!
-    - "Tenho que ser r\xE1pido, eles est\xE3o perto!"
+    - "Ta doido! Vou \xE9 me esconder"
+    - "Mais r\xE1pido, eles t\xE3o perto!"
     - "N\xE3o posso deixar aquilo me pegar!"
   - type: 3
     dialogues:
-    - Preciso ter cautela, eles podem voltar a qualquer momento!
-    - "Acho que eles j\xE1 foram!"
+    - Preciso tomar cuidado, eles podem estar por perto!
+    - Ufa! To livre
     - Estou ficando velho pra isso!
   - type: 4
     dialogues:
-    - 'Meu senhor, aceite um pouco do que tenho, espero que ajude! '
-    - tome uum pouco de comida e se abrigue
-    - "Gostaria de poder ajudar mais , isto \xE9 o que eu tenho, espero que ajude "
+    - 'Humilde, me deu um lanche! '
+    - Hehehe Ganhei uma cartela de ovo
+    - Mais um Cream Cracker pra conta!!
   - type: 5
     dialogues:
     - "T\xE1 achando que isso \xE9 a caridade, sai fora!"
     - "Tu n\xE3o tem vergonha de bater na porta h\xE1 est\xE1 hora? "
     - "Se voc\xEA arrumar um emprego n\xE3o precisa me incomodar pedindo"
+  - type: 6
+    dialogues:
+    - "Preciso de mais para sobreviver esses pr\xF3ximos dias"
+    - "S\xF3 mais um pouquinho"
+  - type: 8
+    dialogues:
+    - "Minha Barriga est\xE1 roncando"
+  - type: 9
+    dialogues:
+    - "Ai que dor, preciso comer, estou come\xE7ando a enxergar coisas "
+  - type: 10
+    dialogues:
+    - "Vultos est\xE3o me perseguindo como urubus"
+  - type: 11
+    dialogues:
+    - "Eu n\xE3o acho que vou durar mais muito tempo, eles est\xE3o s\xF3 me esperando
+      bater as botas"
+  - type: 12
+    dialogues:
+    - "O que diachos \xE9 isso???"
+  - type: 13
+    dialogues:
+    - "Acho que estou come\xE7ando e ver coisas"
+    - Mais um desses bixo!!
+    - "Eu acho que isso est\xE1 come\xE7ando a afetar minha caxola"
+  - type: 14
+    dialogues:
+    - "Saudades da minha maezinha, sem ela eu eu fico t\xE3o sozin"
+    - O que aconteceu comigo?? Sou pior que bicho pras pessoas
+    - Onde foi que eu cheguei nesse estado??
