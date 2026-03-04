@@ -45,10 +45,9 @@ MonoBehaviour:
     - Os ratos chegaram primeiro
   - type: 2
     dialogues:
-    - "Aquela coisa est\xE1 perto"
-    - "Meio desconfort\xE1vel"
-    - "isso fede, mas \xE9 melhor que estar fora"
-    - Preciso me esconder
+    - "Eles est\xE3o ficando pior, preciso me esconder"
+    - "Odeio ficar molhado, mas n\xE3o tenho escolha"
+    - 
   - type: 3
     dialogues:
     - Essa foi por pouco
@@ -63,4 +62,4 @@ MonoBehaviour:
     dialogues:
     - Tenho cara de caridade? Sai daqui Vagbundo
     - "N\xE3o tem vergonha de perturbar n\xE3o? Vaza antes que eu chame a pol\xEDcia. "
-    - ' '
+    - "Vai trabalhar ao inv\xE9s de encher o saco! "

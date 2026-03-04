@@ -23,8 +23,8 @@ public class BeatEmUpController : MonoBehaviour
     private InteractableItem currentItem;
     
     [Header("Sons")]
-    public float footstepInterval = 0.5f; // intervalo entre passos
-    private float lastFootstepTime = 0f;
+    // utilização de som de passos em looping
+    private bool isPlayingFootsteps = false;
 
     void Awake()
     {
@@ -52,14 +52,23 @@ public class BeatEmUpController : MonoBehaviour
 
         anim.SetBool("isJumping", isJumping);
         
-        // Tocar som de passos
+        // gerencia som de passos em loop enquanto o personagem se move e não está pulando
         if (speed > 0.1f && !isJumping)
         {
-            if (Time.time - lastFootstepTime >= footstepInterval)
+            if (!isPlayingFootsteps)
             {
                 if (SoundManager.Instance != null && SoundManager.Instance.somPassosJogador != null)
-                    SoundManager.Instance.PlaySFX(SoundManager.Instance.somPassosJogador, 0.6f);
-                lastFootstepTime = Time.time;
+                    SoundManager.Instance.PlayLoopSFX(SoundManager.Instance.somPassosJogador, 0.6f);
+                isPlayingFootsteps = true;
+            }
+        }
+        else
+        {
+            if (isPlayingFootsteps)
+            {
+                if (SoundManager.Instance != null)
+                    SoundManager.Instance.StopLoopSFX();
+                isPlayingFootsteps = false;
             }
         }
     }
