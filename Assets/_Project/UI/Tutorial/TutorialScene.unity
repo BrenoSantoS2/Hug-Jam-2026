@@ -507,6 +507,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3508506300748066227, guid: b07c06c83c1e36b438d4f330d46ecdc4, type: 3}
+      propertyPath: m_text
+      value: 'Vasculhe e pegue toda comida que conseguir
+
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857001356337247933, guid: b07c06c83c1e36b438d4f330d46ecdc4, type: 3}
+      propertyPath: m_text
+      value: Depois de conseguir 5 comidas, retorne para o beco
+      objectReference: {fileID: 0}
     - target: {fileID: 7131741965826472164, guid: b07c06c83c1e36b438d4f330d46ecdc4, type: 3}
       propertyPath: m_Name
       value: Canva_Tutorial
