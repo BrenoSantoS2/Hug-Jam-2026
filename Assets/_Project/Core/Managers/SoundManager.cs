@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class SoundManager : MonoBehaviour
     [Range(0f, 1f)] public float volumeLoops = 0.8f;
     [Range(0f, 1f)] public float volumeAmbiente = 0.5f;
     [Range(0f, 1f)] public float volumeInteracao = 0.7f;
+    
+    [Header("Configurações de Cena")]
+    public string mainMenuSceneName = "MainMenu";
+    public string level1SceneName = "Level1";
+    
+    private bool isInMainMenu = false;
     
     [Header("Biblioteca de Sons")]
     public AudioClip musicaPrincipal;
@@ -51,8 +58,115 @@ public class SoundManager : MonoBehaviour
 
         InitializeAudioSources();
 
-        if (musicaPrincipal != null)
+        // Escuta mudanças de cena
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        // Verifica se está iniciando no MainMenu
+        CheckIfMainMenuScene();
+
+        if (musicaPrincipal != null && !isInMainMenu)
             PlayMusic(musicaPrincipal);
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        CheckIfMainMenuScene();
+
+        if (!isInMainMenu)
+        {
+            RestartLevelMusic();
+        }
+    }
+
+    private void RestartLevelMusic()
+    {
+        ValidateAudioSources();
+        if (musicSource == null || musicaPrincipal == null)
+            return;
+
+        musicSource.Stop();
+        musicSource.clip = musicaPrincipal;
+        musicSource.volume = volumeMusica * volumeMaster;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    private void CheckIfMainMenuScene()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        bool wasInMainMenu = isInMainMenu;
+        isInMainMenu = currentScene.Equals(mainMenuSceneName, System.StringComparison.OrdinalIgnoreCase);
+
+        Debug.Log($"CheckIfMainMenuScene: Cena atual = {currentScene}, isInMainMenu = {isInMainMenu}");
+
+        if (isInMainMenu && !wasInMainMenu)
+        {
+            // Entrou no MainMenu - muta tudo
+            MuteAllSoundManager();
+            Debug.Log("SoundManager: Entrou no MainMenu - todos os volumes = 0");
+        }
+        else if (!isInMainMenu && wasInMainMenu)
+        {
+            // Saiu do MainMenu - restaura volumes e reinicia música se necessário
+            UnmuteAllSoundManager();
+            Debug.Log("SoundManager: Saiu do MainMenu - volumes restaurados");
+        }
+        else if (!isInMainMenu)
+        {
+            // Está em um nível - garante que a música continue tocando
+            if (musicSource != null && musicaPrincipal != null)
+            {
+                if (!musicSource.isPlaying)
+                {
+                    Debug.Log("SoundManager: Música não está tocando, reiniciando...");
+                    PlayMusic(musicaPrincipal);
+                }
+                else
+                {
+                    Debug.Log($"SoundManager: Música {musicSource.clip?.name} está tocando corretamente");
+                }
+            }
+        }
+
+        // Verifica se está no Level 1 e para a chuva se estiver tocando
+        if (currentScene.Equals(level1SceneName, System.StringComparison.OrdinalIgnoreCase))
+        {
+            StopAmbienceLoopSFX();
+            Debug.Log("SoundManager: Level 1 detectado - som de ambiente (chuva) parado");
+        }
+    }
+
+    private void MuteAllSoundManager()
+    {
+        ValidateAudioSources();
+        if (musicSource != null) musicSource.volume = 0f;
+        if (sfxSource != null) sfxSource.volume = 0f;
+        if (loopSfxSource != null) loopSfxSource.volume = 0f;
+        if (ambienceLoopSource != null) ambienceLoopSource.volume = 0f;
+        if (interactionLoopSource != null) interactionLoopSource.volume = 0f;
+    }
+
+    private void UnmuteAllSoundManager()
+    {
+        ValidateAudioSources();
+        if (musicSource != null) 
+        {
+            musicSource.volume = volumeMusica * volumeMaster;
+            // Reinicia a música principal se ela não estiver tocando
+            if (musicaPrincipal != null && !musicSource.isPlaying)
+            {
+                PlayMusic(musicaPrincipal);
+            }
+        }
+        if (sfxSource != null) sfxSource.volume = volumeSFX * volumeMaster;
+        if (loopSfxSource != null) loopSfxSource.volume = volumeLoops * volumeMaster;
+        if (ambienceLoopSource != null) ambienceLoopSource.volume = volumeAmbiente * volumeMaster;
+        if (interactionLoopSource != null) interactionLoopSource.volume = volumeInteracao * volumeMaster;
     }
 
     private void InitializeAudioSources()
@@ -68,7 +182,7 @@ public class SoundManager : MonoBehaviour
         if (interactionLoopSource == null)
             interactionLoopSource = gameObject.AddComponent<AudioSource>();
 
-        musicSource.loop = false;
+        musicSource.loop = true;
         musicSource.playOnAwake = false;
         sfxSource.playOnAwake = false;
         loopSfxSource.loop = true;
@@ -97,11 +211,19 @@ public class SoundManager : MonoBehaviour
     {
         ValidateAudioSources();
         if (musicSource == null || musicClip == null)
+        {
+            Debug.LogWarning("PlayMusic: musicSource ou musicClip é null");
             return;
+        }
 
-        if (musicSource.clip == musicClip)
+        // Se já está tocando a mesma música, não precisa reiniciar
+        if (musicSource.clip == musicClip && musicSource.isPlaying)
+        {
+            Debug.Log($"PlayMusic: {musicClip.name} já está tocando");
             return;
+        }
 
+        Debug.Log($"PlayMusic: Iniciando {musicClip.name}");
         musicSource.clip = musicClip;
         musicSource.volume = volumeMusica * volumeMaster;
         musicSource.loop = true;
@@ -210,4 +332,47 @@ public class SoundManager : MonoBehaviour
             loopSfxSource.volume = 0f;
         if (interactionLoopSource != null)
             interactionLoopSource.volume = 0f;
-    }}
+    }
+
+    public void StopAllSounds()
+    {
+        ValidateAudioSources();
+        
+        Debug.Log("StopAllSounds chamado - Parando TODOS os áudios");
+        
+        // Para a música
+        if (musicSource != null)
+        {
+            musicSource.Stop();
+            musicSource.clip = null;
+        }
+
+        // Para todos os SFX
+        if (sfxSource != null)
+        {
+            sfxSource.Stop();
+        }
+
+        // Para todos os loops e limpa os clips
+        if (loopSfxSource != null)
+        {
+            loopSfxSource.Stop();
+            loopSfxSource.loop = false;
+            loopSfxSource.clip = null;
+        }
+        
+        if (ambienceLoopSource != null)
+        {
+            ambienceLoopSource.Stop();
+            ambienceLoopSource.loop = false;
+            ambienceLoopSource.clip = null;
+        }
+        
+        if (interactionLoopSource != null)
+        {
+            interactionLoopSource.Stop();
+            interactionLoopSource.loop = false;
+            interactionLoopSource.clip = null;
+        }
+    }
+}

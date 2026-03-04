@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.InputSystem;
 
 public class DialogueFader : MonoBehaviour
 {
@@ -35,19 +34,7 @@ public class DialogueFader : MonoBehaviour
 
             yield return StartCoroutine(FadeCanvas(textCanvasGroup, 0, 1));
 
-            float timer = 0;
-            bool skipped = false;
-
-            while (timer < displayDuration && !skipped)
-            {
-                timer += Time.unscaledDeltaTime;
-
-                if (Keyboard.current.anyKey.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame)
-                {
-                    skipped = true;
-                }
-                yield return null;
-            }
+            yield return new WaitForSecondsRealtime(displayDuration);
 
             yield return StartCoroutine(FadeCanvas(textCanvasGroup, 1, 0));
             yield return new WaitForSecondsRealtime(0.3f); 
