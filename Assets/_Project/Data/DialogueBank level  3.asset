@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085b23a76a9f38d459354a538d659dd0, type: 3}
+  m_Name: DialogueBank level  3
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBank
+  entries:
+  - type: 0
+    dialogues:
+    - 
+    - 
+    - 
+    - 
+  - type: 1
+    dialogues:
+    - "Nada, n\xE3o devem ter jogado o lixo ainda "
+    - Vazio, estou me sentindo fraco
+    - "Minhas m\xE3o est\xE3o tremendo, tenho que achar alguma coisa"
+    - "N\xE3o tem nada nesta tamb\xE9m, meu est\xF4mago d\xF3i"
+  - type: 2
+    dialogues:
+    - "Eles est\xE3o cada dia pior"
+    - Sinto eles bem perto agora
+    - "Meu corpo quase n\xE3o aguenta mais se esconder"
+  - type: 3
+    dialogues:
+    - "Preciso ser r\xE1pido, j\xE1 n\xE3o estou mais aguentando"
+    - "Ta tudo molhado, correr ta ficando mais dif\xEDcil"
+    - "Eles est\xE3o por todos os lados"
+  - type: 4
+    dialogues:
+    - 
+    - 
+    - 
+  - type: 5
+    dialogues:
+    - "Voc\xEA n\xE3o cansa de me perturbar, mendigo dos infernos!"
+    - "Meu senhor, v\xE1 procurar o que fazer, n\xE3o d\xE1 pra ficar incomodando
+      os outros!"
+    - "Se voc\xEA bater aqui de novo, tu vai se ver comigo! Vagabundo!"

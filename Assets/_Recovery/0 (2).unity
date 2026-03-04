@@ -14520,7 +14520,7 @@ Transform:
   m_GameObject: {fileID: 1539511910}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 32.847027, y: 1.0842983, z: -15}
+  m_LocalPosition: {x: 32.84703, y: 1.0846891, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21845,10 +21845,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1423439601}
     m_Modifications:
-    - target: {fileID: 2245747645207595662, guid: 05ae066696ad1644c98958a57c08cc2f, type: 3}
-      propertyPath: dialogueBank
-      value: 
-      objectReference: {fileID: 11400000, guid: c7de23d8489257a4c8c534927e108a50, type: 2}
     - target: {fileID: 4609990124170230221, guid: 05ae066696ad1644c98958a57c08cc2f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

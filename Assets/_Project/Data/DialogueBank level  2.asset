@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085b23a76a9f38d459354a538d659dd0, type: 3}
+  m_Name: DialogueBank level  2
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBank
+  entries:
+  - type: 0
+    dialogues:
+    - "A \xE1gua deixa tudo com gosto de chorume!"
+    - O que soubrou virou quase um ensopado!
+    - "Gra\xE7as a deus, este est\xE1 embalado!"
+    - "N\xE3o tem tantas baratas nesse!"
+  - type: 1
+    dialogues:
+    - Tudo virou praticamente uma sopa!
+    - "Vazio, estou come\xE7ando a me sentir fraco."
+    - "Jogaram no ch\xE3o, nem pensaram em quem precisa"
+    - Sobras podres, pelo cheiro devia ser algo bom antes!
+  - type: 2
+    dialogues:
+    - "tudo molhado, mas n\xE3o tenho escolha"
+    - "Eles est\xE3o cada vez mais agressivos!"
+    - "Sinto a respira\xE7\xE3o daquilo perto!"
+  - type: 3
+    dialogues:
+    - "Estou can\xE7ado de fugir deles!"
+    - Meu joelho ta doendo de tanto me esconder!
+    - Vou ficar encharcado, meu deus como eu odeio isso!
+  - type: 4
+    dialogues:
+    - 'Pega logo isso e vaza! '
+    - "Mesmo na chuva voc~e continua ai? toma, \xE9 o que tenho"
+    - "Jesus, voc\xEA deve estar com frio, coma um biscoito!"
+  - type: 5
+    dialogues:
+    - "Molhado voc\xEA fede ainda mais, cai fora!"
+    - "Aqui, quem n\xE3o trabalha n\xE3o existe, v\xE1 procurar seu rumo!"
+    - "Voc\xEA acha que pode ficar vindo aqui pedir algo? Sai ou eu vou chamar a
+      pol\xEDcia! "

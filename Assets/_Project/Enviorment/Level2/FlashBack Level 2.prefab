@@ -210,9 +210,9 @@ MonoBehaviour:
   fadeDuration: 1
   displayDuration: 2.5
   dialogueLines:
-  - '5 sias depois '
-  - 'Sem nada para comer '
-  - E no meio de uma tempestade
+  - '5 dias depois '
+  - A chuva castiga
+  - "O est\xF4mago se retorce"
 --- !u!1 &8920091260492692752
 GameObject:
   m_ObjectHideFlags: 0
