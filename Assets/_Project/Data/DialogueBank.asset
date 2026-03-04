@@ -15,7 +15,7 @@ MonoBehaviour:
   entries:
   - type: 0
     dialogues:
-    - Meu deus uma Feijoada
+    - "A \xE1gua deixa tudo com gosto de chorume"
     - Encontrei um Sanduiche pela metade
     - Batata frita, murcha, mas serve
     - "Dei sorte, at\xE9 que est\xE1 na validade"
@@ -27,8 +27,8 @@ MonoBehaviour:
     - "Incrivel como esse bolo de carne est\xE1 inteiro"
   - type: 1
     dialogues:
-    - Tem porra nenhuma ;-;
-    - Caraio nada de novo
+    - ' '
+    - 
     - "N\xE3o sobrou nem osso"
     - "O lixeiro deve ter passado, desgra\xE7ados"
     - Sobra nada pra gente mesmo
@@ -47,7 +47,7 @@ MonoBehaviour:
     dialogues:
     - "Eles est\xE3o ficando pior, preciso me esconder"
     - "Odeio ficar molhado, mas n\xE3o tenho escolha"
-    - 
+    - "Essa chuva s\xF3 dificulta "
   - type: 3
     dialogues:
     - Essa foi por pouco
