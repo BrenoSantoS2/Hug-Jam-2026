@@ -39,6 +39,11 @@ public class HungerGhost : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
+        float speedVariation = Random.Range(0.85f, 1.15f);
+
+        followSpeed *= speedVariation;
+        orbitSpeed *= speedVariation;
+
         orbitAngle = Random.Range(0f, Mathf.PI * 2f);
         randomOffset = Vector3.zero;
 
@@ -92,14 +97,11 @@ public class HungerGhost : MonoBehaviour
         Vector3 targetPos = player.position + offset;
         float distance = Vector3.Distance(transform.position, targetPos);
 
+        Vector3 moveDirection = (targetPos - transform.position).normalized;
+
         if (distance > stoppingDistance)
         {
-            Vector3 moveDirection = (targetPos - transform.position).normalized;
             transform.position = Vector3.MoveTowards(transform.position, targetPos, followSpeed * Time.deltaTime);
-            
-            // Virar sprite baseado na direção do movimento
-            if (sr != null && Mathf.Abs(moveDirection.x) > 0.01f)
-                sr.flipX = moveDirection.x < 0;
             
             // Som de corrida do ghost
             if (Time.time - lastRunSoundTime >= runSoundInterval)
@@ -109,6 +111,10 @@ public class HungerGhost : MonoBehaviour
                 lastRunSoundTime = Time.time;
             }
         }
+
+        // Virar sprite baseado na direção (sempre atualiza)
+        if (sr != null && Mathf.Abs(moveDirection.x) > 0.01f)
+            sr.flipX = moveDirection.x > 0;
 
         float vOffset = Mathf.Sin(Time.time * floatFrequency) * floatAmplitude;
         transform.position += new Vector3(0, vOffset * Time.deltaTime, 0);
