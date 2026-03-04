@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085b23a76a9f38d459354a538d659dd0, type: 3}
+  m_Name: DialogueBank level  2
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBank
+  entries:
+  - type: 0
+    dialogues:
+    - "A \xE1gua deixa tudo com gosto de lixo!"
+    - O que soubrou virou quase um ensopado!
+    - "Gra\xE7as a deus, este est\xE1 embalado!"
+    - "N\xE3o tem tantas baratas nesse!"
+  - type: 1
+    dialogues:
+    - Credo! Tudo virou praticamente uma sopa!
+    - "Vazio, estou come\xE7ando a me sentir mei mole."
+    - "Jogaram no ch\xE3o, nem pensaram que eu poderia ter comido isso"
+    - "S\xF3 resto podre, pelo cheiro devia ser algo bom antes!"
+  - type: 2
+    dialogues:
+    - "tudo molhado, mas n\xE3o tenho escolha"
+    - "Eles est\xE3o cada vez mais agressivos!"
+    - "Sinto a respira\xE7\xE3o daquilo vindo!"
+  - type: 3
+    dialogues:
+    - Estou cansado de fugir deles!
+    - Meu joelho ta doendo de tanto me esconder!
+    - Vou ficar encharcado, meu deus como eu odeio esse trem!
+  - type: 4
+    dialogues:
+    - 'Pelo menos uma alma boa nessa cidade '
+    - Biscoitim maisena! Vam bora!
+    - "Pacote de macarr\xE3o! Ai sim emmm!"
+  - type: 5
+    dialogues:
+    - "Molhado voc\xEA fede ainda mais, cai fora!"
+    - "Aqui, quem n\xE3o trabalha n\xE3o existe, v\xE1 procurar seu rumo!"
+    - "Voc\xEA acha que pode ficar vindo aqui pedir algo? Sai ou eu vou chamar a
+      pol\xEDcia! "
+  - type: 6
+    dialogues:
+    - Preciso de mais para sobreviver essa chuva
+    - "S\xF3 mais um pouquinho"
+  - type: 8
+    dialogues:
+    - "Minha Barriga est\xE1 roncando, n\xE3o aguento mais passar por isso"
+  - type: 9
+    dialogues:
+    - "Ai que dor, preciso comer, estou come\xE7ando a enxergar coisas "
+  - type: 10
+    dialogues:
+    - "Vultos est\xE3o me perseguindo como urubus"
+  - type: 11
+    dialogues:
+    - "Eu n\xE3o acho que vou durar mais muito tempo, eles est\xE3o s\xF3 me esperando
+      bater as botas"
+  - type: 12
+    dialogues:
+    - Esse bicho ta aqui de novo??
+  - type: 13
+    dialogues:
+    - "Acho que estou come\xE7ando e ver coisas"
+    - Mais um desses bixo!!
+    - "Eu acho que isso est\xE1 come\xE7ando a afetar minha caxola"
+  - type: 14
+    dialogues:
+    - "Nem lembro a \xFAltima vez que eu deitei em uma cama"
+    - Queria ser como as outras pessoas
+    - "Por que eu sou t\xE3o odiado??"

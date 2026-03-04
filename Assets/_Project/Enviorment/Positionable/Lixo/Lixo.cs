@@ -19,6 +19,8 @@ public class Lixo : MonoBehaviour
         if (interactable != null)
         {
             interactable.reusable = false;
+            interactable.onInteractionStart.AddListener(OnInteractionStart);
+            interactable.onInteractionCanceled.AddListener(OnInteractionCanceled);
             interactable.onInteractionComplete.AddListener(OnFirstInteraction);
             interactable.onSubsequentInteraction.AddListener(OnSubsequentInteraction);
         }
@@ -27,14 +29,23 @@ public class Lixo : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    void OnEnable()
+    {
+        // Se needs setup, faz aqui
+    }
+
     public void OnFirstInteraction()
     {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.StopInteractionLoopSFX();
+
         if (hasFood && !wasSearched)
         {
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somLixo);
             
             wasSearched = true;
             GameManager.Instance.AddFood();
+            GameManager.Instance.IncrementExploredCount();
             
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somComidaEncontrada);
             DialogueSystem.Instance.ShowDialogue(DialogueType.TrashFoundFood);
@@ -47,6 +58,8 @@ public class Lixo : MonoBehaviour
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somLixo);
             
             wasSearched = true;
+            GameManager.Instance.IncrementExploredCount();
+            
             DialogueSystem.Instance.ShowDialogue(DialogueType.TrashEmpty);
 
             if (spriteRenderer != null)
@@ -56,6 +69,24 @@ public class Lixo : MonoBehaviour
 
     public void OnSubsequentInteraction()
     {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.StopInteractionLoopSFX();
+
         DialogueSystem.Instance.ShowDialogue(DialogueType.TrashEmpty);
+    }
+
+    private void OnInteractionStart()
+    {
+        if (wasSearched)
+            return;
+
+        if (SoundManager.Instance != null && SoundManager.Instance.somRevirandoLixo != null)
+            SoundManager.Instance.PlayInteractionLoopSFX(SoundManager.Instance.somRevirandoLixo, 0.55f);
+    }
+
+    private void OnInteractionCanceled()
+    {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.StopInteractionLoopSFX();
     }
 }

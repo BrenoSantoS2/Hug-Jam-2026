@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085b23a76a9f38d459354a538d659dd0, type: 3}
+  m_Name: DialogueBank level 1
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBank
+  entries:
+  - type: 0
+    dialogues:
+    - Quem diriaaa uma feijoada!!
+    - "Ta podi, mas d\xE1 pra comer"
+    - "Um sandu\xEDche meio comida, melhor que rato frito"
+    - Tive sorte, a marmita ta quase inteira!!
+  - type: 1
+    dialogues:
+    - 'Tem nada, os lixeiros devem ter levado tudo. '
+    - Poderiam ao menos separar a comida das outras coisas.
+    - Sobra nada!
+    - "Mais vazio que o cora\xE7\xE3o daquela senhora que me xingou ontem!"
+  - type: 2
+    dialogues:
+    - "Ta doido! Vou \xE9 me esconder"
+    - "Mais r\xE1pido, eles t\xE3o perto!"
+    - "N\xE3o posso deixar aquilo me pegar!"
+  - type: 3
+    dialogues:
+    - Preciso tomar cuidado, eles podem estar por perto!
+    - Ufa! To livre
+    - Estou ficando velho pra isso!
+  - type: 4
+    dialogues:
+    - 'Humilde, me deu um lanche! '
+    - Hehehe Ganhei uma cartela de ovo
+    - Mais um Cream Cracker pra conta!!
+  - type: 5
+    dialogues:
+    - "T\xE1 achando que isso \xE9 a caridade, sai fora!"
+    - "Tu n\xE3o tem vergonha de bater na porta h\xE1 est\xE1 hora? "
+    - "Se voc\xEA arrumar um emprego n\xE3o precisa me incomodar pedindo"
+  - type: 6
+    dialogues:
+    - "Preciso de mais para sobreviver esses pr\xF3ximos dias"
+    - "S\xF3 mais um pouquinho"
+  - type: 8
+    dialogues:
+    - "Minha Barriga est\xE1 roncando"
+  - type: 9
+    dialogues:
+    - "Ai que dor, preciso comer, estou come\xE7ando a enxergar coisas "
+  - type: 10
+    dialogues:
+    - "Vultos est\xE3o me perseguindo como urubus"
+  - type: 11
+    dialogues:
+    - "Eu n\xE3o acho que vou durar mais muito tempo, eles est\xE3o s\xF3 me esperando
+      bater as botas"
+  - type: 12
+    dialogues:
+    - "O que diachos \xE9 isso???"
+  - type: 13
+    dialogues:
+    - "Acho que estou come\xE7ando e ver coisas"
+    - Mais um desses bixo!!
+    - "Eu acho que isso est\xE1 come\xE7ando a afetar minha caxola"
+  - type: 14
+    dialogues:
+    - "Saudades da minha maezinha, sem ela eu eu fico t\xE3o sozin"
+    - O que aconteceu comigo?? Sou pior que bicho pras pessoas
+    - Onde foi que eu cheguei nesse estado??
