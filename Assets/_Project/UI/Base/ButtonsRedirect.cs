@@ -6,6 +6,7 @@ public class ButtonsRedirect : MonoBehaviour
     // scene name
     public void GoToScene(string sceneName)
     {
+        Debug.Log("Tentando carregar a cena: " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
 
