@@ -213,7 +213,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 735678251351954661, guid: 217b3b7ed73cdae4b9425bddf350a968, type: 3}
       propertyPath: hasFood
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3606532113432852349, guid: 217b3b7ed73cdae4b9425bddf350a968, type: 3}
       propertyPath: m_Name
@@ -1335,18 +1335,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4549687497103777586, guid: 0d5f1304388e69745bafaf3216a62f10, type: 3}
-      propertyPath: m_Size.y
-      value: 0.14470708
-      objectReference: {fileID: 0}
-    - target: {fileID: 4549687497103777586, guid: 0d5f1304388e69745bafaf3216a62f10, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.14958653
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740685676083494559, guid: 0d5f1304388e69745bafaf3216a62f10, type: 3}
-      propertyPath: exitOffset.y
-      value: -5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1406,7 +1394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4702227267562767552, guid: 71f76961b7d3e9945a574214a9f35be4, type: 3}
       propertyPath: hasResponse
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4702227267562767552, guid: 71f76961b7d3e9945a574214a9f35be4, type: 3}
       propertyPath: videoPlayer
@@ -1668,14 +1656,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4549687497103777586, guid: 0d5f1304388e69745bafaf3216a62f10, type: 3}
-      propertyPath: m_Size.y
-      value: 0.082874924
-      objectReference: {fileID: 0}
-    - target: {fileID: 4549687497103777586, guid: 0d5f1304388e69745bafaf3216a62f10, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.18050261
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1689,6 +1669,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2125361783}
     m_Modifications:
+    - target: {fileID: 735678251351954661, guid: 217b3b7ed73cdae4b9425bddf350a968, type: 3}
+      propertyPath: hasFood
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3606532113432852349, guid: 217b3b7ed73cdae4b9425bddf350a968, type: 3}
       propertyPath: m_Name
       value: Lixo Costa (2)
@@ -2103,6 +2087,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7783242084396495949, guid: 635fdd5543c194a42b9766a0c2b97dfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655485727827953340, guid: 635fdd5543c194a42b9766a0c2b97dfd, type: 3}
+      propertyPath: hasFood
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -12003,7 +11991,7 @@ Transform:
   m_GameObject: {fileID: 941938092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -201.13, y: -161.23, z: 0}
+  m_LocalPosition: {x: -154.8, y: -161.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12873,6 +12861,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8655485727827953340, guid: 635fdd5543c194a42b9766a0c2b97dfd, type: 3}
+      propertyPath: hasFood
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13180,7 +13172,7 @@ MonoBehaviour:
   targetLight: {fileID: 1395050655}
   flashIntensity: 4
   flashDuration: 0.1
-  defaultIntensity: 0.1
+  defaultIntensity: 0.4
   minTime: 3
   maxTime: 10
 --- !u!1 &1318929099
@@ -13416,7 +13408,7 @@ Transform:
   m_GameObject: {fileID: 1329763730}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -189.76, y: -158.27, z: 0}
+  m_LocalPosition: {x: -136.5, y: -158.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13447,7 +13439,7 @@ Transform:
   m_GameObject: {fileID: 1369394211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -227.4, y: -161.23, z: 0}
+  m_LocalPosition: {x: -195.5, y: -161.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13463,7 +13455,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 735678251351954661, guid: 217b3b7ed73cdae4b9425bddf350a968, type: 3}
       propertyPath: hasFood
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3606532113432852349, guid: 217b3b7ed73cdae4b9425bddf350a968, type: 3}
       propertyPath: m_Name
@@ -13593,7 +13585,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
-  m_Intensity: 0.4
+  m_Intensity: 0.55
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000c52055323fffb901b90f1cf4
@@ -14098,7 +14090,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 735678251351954661, guid: 217b3b7ed73cdae4b9425bddf350a968, type: 3}
       propertyPath: hasFood
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3606532113432852349, guid: 217b3b7ed73cdae4b9425bddf350a968, type: 3}
       propertyPath: m_Name
@@ -14801,7 +14793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4702227267562767552, guid: 71f76961b7d3e9945a574214a9f35be4, type: 3}
       propertyPath: hasResponse
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4702227267562767552, guid: 71f76961b7d3e9945a574214a9f35be4, type: 3}
       propertyPath: videoPlayer
@@ -14871,10 +14863,6 @@ PrefabInstance:
     - target: {fileID: 4859616565732683058, guid: 2d8079b7eb2103e4b9911750fa2b898c, type: 3}
       propertyPath: m_Name
       value: Taboa (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5373259056968785584, guid: 2d8079b7eb2103e4b9911750fa2b898c, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14985,7 +14973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8655485727827953340, guid: 635fdd5543c194a42b9766a0c2b97dfd, type: 3}
       propertyPath: hasFood
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15468,7 +15456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8655485727827953340, guid: 635fdd5543c194a42b9766a0c2b97dfd, type: 3}
       propertyPath: hasFood
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21261,13 +21249,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1129028822}
     - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
+      propertyPath: foodRequired
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
       propertyPath: nextSceneName
       value: Level3
       objectReference: {fileID: 0}
     - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
       propertyPath: fadeCanvasGroup
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1318929103}
     - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
       propertyPath: flashbackPrefab
       value: 
@@ -21276,6 +21268,10 @@ PrefabInstance:
       propertyPath: videoCanvasGroup
       value: 
       objectReference: {fileID: 1129028817}
+    - target: {fileID: 477816854486116672, guid: c211e33b53d618041b15342083c338f3, type: 3}
+      propertyPath: requireAllItemsExplored
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1468370635796917488, guid: c211e33b53d618041b15342083c338f3, type: 3}
       propertyPath: m_LocalScale.x
       value: 5.3225794
@@ -21663,7 +21659,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5010648143639662564, guid: a0a55dea5348be84eaaf257b294436d6, type: 3}
       propertyPath: maxTime
-      value: 40
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 5010648143639662564, guid: a0a55dea5348be84eaaf257b294436d6, type: 3}
+      propertyPath: monologueInterval
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7337518686615272224, guid: a0a55dea5348be84eaaf257b294436d6, type: 3}
       propertyPath: m_text

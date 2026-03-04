@@ -27,6 +27,11 @@ public class Lixo : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    void OnEnable()
+    {
+        // Se needs setup, faz aqui
+    }
+
     public void OnFirstInteraction()
     {
         if (hasFood && !wasSearched)
@@ -35,6 +40,7 @@ public class Lixo : MonoBehaviour
             
             wasSearched = true;
             GameManager.Instance.AddFood();
+            GameManager.Instance.IncrementExploredCount();
             
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somComidaEncontrada);
             DialogueSystem.Instance.ShowDialogue(DialogueType.TrashFoundFood);
@@ -47,6 +53,8 @@ public class Lixo : MonoBehaviour
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somLixo);
             
             wasSearched = true;
+            GameManager.Instance.IncrementExploredCount();
+            
             DialogueSystem.Instance.ShowDialogue(DialogueType.TrashEmpty);
 
             if (spriteRenderer != null)
