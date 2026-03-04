@@ -1570,17 +1570,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   musicSource: {fileID: 0}
   sfxSource: {fileID: 0}
-  somLixo: {fileID: 8300000, guid: b8202eddb352b8244880fc875ec74875, type: 3}
-  somComidaEncontrada: {fileID: 0}
-  somPortaAbrindo: {fileID: 8300000, guid: b8202eddb352b8244880fc875ec74875, type: 3}
-  somPortaFechando: {fileID: 0}
-  somPassosJogador: {fileID: 0}
+  somLixo: {fileID: 8300000, guid: 52e9faf4538d2a34baa0052f30a7fcdd, type: 3}
+  somComidaEncontrada: {fileID: 8300000, guid: b9bd5f23607f47a4185f385cb903fe1f, type: 3}
+  somPortaAbrindo: {fileID: 8300000, guid: cdfe4ea0caddae24893be8c546930273, type: 3}
+  somPortaFechando: {fileID: 8300000, guid: d14d18d31962cfd42bbaa1a48c8b6438, type: 3}
+  somPassosJogador: {fileID: 8300000, guid: d810733b013a4a143b337f3ffad6b08a, type: 3}
   somMonstroRastejando: {fileID: 0}
   somGhostCorrendo: {fileID: 0}
-  somChuva: {fileID: 0}
+  somChuva: {fileID: 8300000, guid: 5bcb3e9b66f362b4e8c195b4b70b871a, type: 3}
   somTrovao: {fileID: 0}
-  somEsconder: {fileID: 8300000, guid: b8202eddb352b8244880fc875ec74875, type: 3}
-  "somEst\xE1Escondido": {fileID: 0}
+  somEsconder: {fileID: 8300000, guid: 8f2d4ab531e2d0f4494240f288ffc077, type: 3}
+  "somEst\xE1Escondido": {fileID: 8300000, guid: 204e8dcc7b9ef7941a7a37202f1898ab, type: 3}
   somEntrandoBeco: {fileID: 0}
   somGameOver: {fileID: 8300000, guid: b8202eddb352b8244880fc875ec74875, type: 3}
 --- !u!114 &484664606
@@ -14405,7 +14405,7 @@ Transform:
   m_GameObject: {fileID: 1539511910}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 32.847027, y: 1.0850699, z: -15}
+  m_LocalPosition: {x: 32.84703, y: 1.0846891, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
