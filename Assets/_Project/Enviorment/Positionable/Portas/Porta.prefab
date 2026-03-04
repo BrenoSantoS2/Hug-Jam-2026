@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Vou te dar esse pacote de biscoito, agora vai embora!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f6e64795e8b8a6b408782b1d866a02c9, type: 2}
-  m_sharedMaterial: {fileID: -5756532454993737507, guid: f6e64795e8b8a6b408782b1d866a02c9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 06f8699cccc467544970d5ab74fedaa9, type: 2}
+  m_sharedMaterial: {fileID: -7040872845975945319, guid: 06f8699cccc467544970d5ab74fedaa9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
-  m_fontSizeBase: 35
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -353,6 +353,12 @@ MonoBehaviour:
   loadingBallAnim: {fileID: 616507805123340909}
   loadingObject: {fileID: 9148160546511404053}
   keyPromptPrefab: {fileID: 1425362001912669522}
+  onInteractionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onInteractionCanceled:
+    m_PersistentCalls:
+      m_Calls: []
   onInteractionComplete:
     m_PersistentCalls:
       m_Calls:
@@ -384,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ccaf15875d14e54a88ebd7c15732fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Porta
-  hasResponse: 1
+  hasResponse: 0
   doorAnimator: {fileID: 4136245139025958437}
   videoPlayer: {fileID: 0}
   videoCanvasGroup: {fileID: 0}
@@ -392,6 +398,7 @@ MonoBehaviour:
   middleText: {fileID: 5083707758170949794}
   firstVideoClip: {fileID: 32900000, guid: b2257a5f4acebe541bbc6854b90e0e87, type: 3}
   secondLoopVideoClip: {fileID: 32900000, guid: 560b993f8b669bb479321438fffdd550, type: 3}
+  secondVideoAudio: {fileID: 8300000, guid: 9a655b2ea18629043ab114d68b71aebc, type: 3}
   secondVideoLoopDuration: 3
   videoFadeInDuration: 0.3
   videoFadeOutDuration: 0.3

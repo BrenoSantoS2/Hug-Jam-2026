@@ -53,7 +53,6 @@ public class Beco : MonoBehaviour
             int total = GameManager.Instance.GetTotalItemsCount();
             int explored = GameManager.Instance.GetExploredItemsCount();
             
-            // Verificar se há itens registrados E se todos foram explorados
             if (total == 0 || explored < total)
             {
                 DialogueSystem.Instance.ShowDialogue(DialogueType.ExplorationIncomplete);
@@ -70,6 +69,10 @@ public class Beco : MonoBehaviour
 
         if (SoundManager.Instance != null && SoundManager.Instance.somEntrandoBeco != null)
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somEntrandoBeco);
+
+        // Mutar música e ambiente antes da cutscene
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.MuteAllExceptSFX();
 
         if (conclusionSequence != null)
             StopCoroutine(conclusionSequence);

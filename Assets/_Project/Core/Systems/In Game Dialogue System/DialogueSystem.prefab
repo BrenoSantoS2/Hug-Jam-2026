@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 06f8699cccc467544970d5ab74fedaa9, type: 2}
+  m_sharedMaterial: {fileID: -7040872845975945319, guid: 06f8699cccc467544970d5ab74fedaa9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -160,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4609990124170230221}
   - component: {fileID: 2245747645207595662}
+  - component: {fileID: 5719968899737984090}
   m_Layer: 5
   m_Name: DialogueSystem
   m_TagString: Untagged
@@ -205,3 +206,15 @@ MonoBehaviour:
   fadeInDuration: 0.3
   fadeOutDuration: 0.3
   dialogueBank: {fileID: 11400000, guid: cc71b257b1b2b4f4ba7058bb4a188e47, type: 2}
+--- !u!225 &5719968899737984090
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6328174264835018910}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

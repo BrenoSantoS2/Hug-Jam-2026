@@ -110,7 +110,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 28966719
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
 --- !u!61 &4549687497103777586
@@ -249,6 +249,12 @@ MonoBehaviour:
   loadingBallAnim: {fileID: 5550138949788905051}
   loadingObject: {fileID: 4286442650591426595}
   keyPromptPrefab: {fileID: 8230869194837395521}
+  onInteractionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onInteractionCanceled:
+    m_PersistentCalls:
+      m_Calls: []
   onInteractionComplete:
     m_PersistentCalls:
       m_Calls:

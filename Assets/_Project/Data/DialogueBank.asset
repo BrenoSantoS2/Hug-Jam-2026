@@ -27,7 +27,6 @@ MonoBehaviour:
     - "Incrivel como esse bolo de carne est\xE1 inteiro"
   - type: 1
     dialogues:
-    - Tem porra nenhuma ;-;
     - Caraio nada de novo
     - "N\xE3o sobrou nem osso"
     - "O lixeiro deve ter passado, desgra\xE7ados"
@@ -43,6 +42,7 @@ MonoBehaviour:
 
 '
     - Os ratos chegaram primeiro
+    - Tem porra nenhuma ;-;
   - type: 2
     dialogues:
     - "Eles est\xE3o ficando pior, preciso me esconder"
