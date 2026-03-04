@@ -42,6 +42,8 @@ public class Beco : MonoBehaviour
 
         if (fadeCanvasGroup != null)
             fadeCanvasGroup.alpha = 0f;
+
+        ResetAndClearVideoPlayer();
     }
 
     public void OnInteraction()
@@ -103,6 +105,8 @@ public class Beco : MonoBehaviour
 
                 if (videoCanvasGroup != null)
                     yield return StartCoroutine(FadeCanvas(videoCanvasGroup, 1f, 0f, fadeOutDuration));
+
+                ResetAndClearVideoPlayer();
             }
         }
         else
@@ -171,6 +175,24 @@ public class Beco : MonoBehaviour
         else
         {
             SceneManager.LoadScene(nextSceneName);
+        }
+    }
+
+    private void ResetAndClearVideoPlayer()
+    {
+        if (videoPlayer == null)
+            return;
+
+        videoPlayer.Stop();
+        videoPlayer.isLooping = false;
+        videoPlayer.clip = null;
+
+        if (videoPlayer.targetTexture != null)
+        {
+            RenderTexture previous = RenderTexture.active;
+            RenderTexture.active = videoPlayer.targetTexture;
+            GL.Clear(true, true, Color.black);
+            RenderTexture.active = previous;
         }
     }
 }
