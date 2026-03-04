@@ -21,7 +21,7 @@ public class LightningFlasher : MonoBehaviour
             targetLight.intensity = defaultIntensity;
             
             if (SoundManager.Instance != null && SoundManager.Instance.somChuva != null)
-                SoundManager.Instance.PlayLoopSFX(SoundManager.Instance.somChuva, 0.4f);
+                SoundManager.Instance.PlayAmbienceLoopSFX(SoundManager.Instance.somChuva, 0.4f);
             
             StartCoroutine(LightningRoutine());
         }

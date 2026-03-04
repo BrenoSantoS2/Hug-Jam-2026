@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Hug-Jam-2026.slnx"
+    "dotnet.defaultSolution": "Hug Jam 26.slnx"
 }

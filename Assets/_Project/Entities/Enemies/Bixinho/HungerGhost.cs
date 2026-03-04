@@ -94,7 +94,12 @@ public class HungerGhost : MonoBehaviour
 
         if (distance > stoppingDistance)
         {
+            Vector3 moveDirection = (targetPos - transform.position).normalized;
             transform.position = Vector3.MoveTowards(transform.position, targetPos, followSpeed * Time.deltaTime);
+            
+            // Virar sprite baseado na direção do movimento
+            if (sr != null && Mathf.Abs(moveDirection.x) > 0.01f)
+                sr.flipX = moveDirection.x < 0;
             
             // Som de corrida do ghost
             if (Time.time - lastRunSoundTime >= runSoundInterval)
@@ -108,9 +113,6 @@ public class HungerGhost : MonoBehaviour
         float vOffset = Mathf.Sin(Time.time * floatFrequency) * floatAmplitude;
         transform.position += new Vector3(0, vOffset * Time.deltaTime, 0);
 
-
-        if (sr != null)
-            sr.flipX = player.position.x < transform.position.x;
 
         Color c = sr.color;
         c.a = 0.3f + (Mathf.PingPong(Time.time, 0.4f));

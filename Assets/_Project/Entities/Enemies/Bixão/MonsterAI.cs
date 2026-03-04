@@ -74,6 +74,10 @@ public class MonsterAI : MonoBehaviour
                             DialogueSystem.Instance.ShowDialogue(DialogueType.SawMonsterFirst);
                         hasBeenSeenFirstTime = true;
                     }
+
+                    if (SoundManager.Instance != null && SoundManager.Instance.somMonstroViuJogador != null)
+                        SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroViuJogador, 0.9f);
+
                     currentState = MonsterState.Chasing;
                 }
                 break;
@@ -103,11 +107,14 @@ public class MonsterAI : MonoBehaviour
             targetDestination = targetDestination == pointA.position ? pointB.position : pointA.position;
         }
         
-        // Som de rastejamento
         if (Time.time - lastCrawlSoundTime >= crawlSoundInterval)
         {
             if (SoundManager.Instance != null && SoundManager.Instance.somMonstroRastejando != null)
-                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, 0.4f);
+            {
+                float distanceToPlayer = player != null ? Vector3.Distance(transform.position, player.position) : 999f;
+                float soundVolume = CalculateCrawlSoundVolume(distanceToPlayer);
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, soundVolume);
+            }
             lastCrawlSoundTime = Time.time;
         }
     }
@@ -117,13 +124,30 @@ public class MonsterAI : MonoBehaviour
         if (player != null)
             transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
         
-        // Som de rastejamento durante perseguicao
+        // Som de rastejamento durante perseguicao com volume baseado na distância
         if (Time.time - lastCrawlSoundTime >= crawlSoundInterval)
         {
             if (SoundManager.Instance != null && SoundManager.Instance.somMonstroRastejando != null)
-                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, 0.5f);
+            {
+                float distanceToPlayer = player != null ? Vector3.Distance(transform.position, player.position) : 999f;
+                float soundVolume = CalculateCrawlSoundVolume(distanceToPlayer);
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.somMonstroRastejando, soundVolume);
+            }
             lastCrawlSoundTime = Time.time;
         }
+    }
+
+    float CalculateCrawlSoundVolume(float distance)
+    {
+        float maxDistance = 2f;
+        float minVolume = 0f;
+        float maxVolume = 0.2f;
+        
+        if (distance > maxDistance)
+            return 0f;
+        
+        float normalizedDistance = distance / maxDistance;
+        return Mathf.Lerp(maxVolume, minVolume, normalizedDistance);
     }
 
     void HandleVisualFeedback(float distance)

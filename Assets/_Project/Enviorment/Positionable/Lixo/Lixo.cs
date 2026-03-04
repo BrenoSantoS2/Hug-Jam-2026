@@ -19,6 +19,8 @@ public class Lixo : MonoBehaviour
         if (interactable != null)
         {
             interactable.reusable = false;
+            interactable.onInteractionStart.AddListener(OnInteractionStart);
+            interactable.onInteractionCanceled.AddListener(OnInteractionCanceled);
             interactable.onInteractionComplete.AddListener(OnFirstInteraction);
             interactable.onSubsequentInteraction.AddListener(OnSubsequentInteraction);
         }
@@ -34,6 +36,9 @@ public class Lixo : MonoBehaviour
 
     public void OnFirstInteraction()
     {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.StopInteractionLoopSFX();
+
         if (hasFood && !wasSearched)
         {
             SoundManager.Instance.PlaySFX(SoundManager.Instance.somLixo);
@@ -64,6 +69,24 @@ public class Lixo : MonoBehaviour
 
     public void OnSubsequentInteraction()
     {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.StopInteractionLoopSFX();
+
         DialogueSystem.Instance.ShowDialogue(DialogueType.TrashEmpty);
+    }
+
+    private void OnInteractionStart()
+    {
+        if (wasSearched)
+            return;
+
+        if (SoundManager.Instance != null && SoundManager.Instance.somRevirandoLixo != null)
+            SoundManager.Instance.PlayInteractionLoopSFX(SoundManager.Instance.somRevirandoLixo, 0.55f);
+    }
+
+    private void OnInteractionCanceled()
+    {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.StopInteractionLoopSFX();
     }
 }
