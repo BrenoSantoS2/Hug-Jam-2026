@@ -1507,17 +1507,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &484664607 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2845397425184723059, guid: ca56fecfac596e2469898849eb8266eb, type: 3}
-  m_PrefabInstance: {fileID: 1908286553323814431}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b7f37ae79dad84698765fe83e0f10e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseManager
 --- !u!1001 &498371070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13590,6 +13579,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4702227267562767552, guid: 71f76961b7d3e9945a574214a9f35be4, type: 3}
+      propertyPath: hasResponse
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702227267562767552, guid: 71f76961b7d3e9945a574214a9f35be4, type: 3}
       propertyPath: videoPlayer
       value: 
       objectReference: {fileID: 1129028822}
@@ -14304,7 +14297,7 @@ Transform:
   m_GameObject: {fileID: 1539511910}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 32.847027, y: 1.0849096, z: -15}
+  m_LocalPosition: {x: 32.847034, y: 1.0850999, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15467,18 +15460,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PausePanel
       objectReference: {fileID: 0}
-    - target: {fileID: 436685294039022871, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2122319145306953848, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1827016919}
-    - target: {fileID: 2122319145306953848, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GoToScene
-      objectReference: {fileID: 0}
     - target: {fileID: 2332809699913630842, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -15559,14 +15540,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6732135927388739796, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 484664607}
-    - target: {fileID: 6732135927388739796, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResumeGame
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15577,17 +15550,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2332809699913630842, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
   m_PrefabInstance: {fileID: 1827016917}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1827016919 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 731409686542602031, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
-  m_PrefabInstance: {fileID: 1827016917}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827016920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 308bbda84b618f84988c98cbaea9747a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonsRedirect
 --- !u!1 &1827016920 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 436685294039022871, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}

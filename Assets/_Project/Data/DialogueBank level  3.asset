@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085b23a76a9f38d459354a538d659dd0, type: 3}
+  m_Name: DialogueBank level  3
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBank
+  entries:
+  - type: 0
+    dialogues:
+    - "A \xE1gua deixa tudo com gosto de lixo!"
+    - O que soubrou virou quase um ensopado!
+    - "Gra\xE7as a deus, este est\xE1 embalado!"
+    - "N\xE3o tem tantas baratas nesse!"
+  - type: 1
+    dialogues:
+    - "Nada, n\xE3o devem ter jogado o lixo ainda "
+    - "Vazio, estou come\xE7ando a me sentir mei mole."
+    - "Minhas m\xE3o est\xE3o tremendo, tenho que achar alguma coisa"
+    - "N\xE3o tem nada nesta tamb\xE9m, meu est\xF4mago d\xF3i"
+  - type: 2
+    dialogues:
+    - "Eles est\xE3o cada dia pior"
+    - Sinto eles bem perto agora
+    - "Meu corpo quase n\xE3o aguenta mais se esconder"
+  - type: 3
+    dialogues:
+    - "Preciso ser r\xE1pido, j\xE1 n\xE3o estou mais aguentando"
+    - "Ta tudo molhado, correr ta ficando mais dif\xEDcil"
+    - "Eles est\xE3o por todos os lados"
+  - type: 4
+    dialogues:
+    - 
+    - 
+    - 
+  - type: 5
+    dialogues:
+    - "Voc\xEA n\xE3o cansa de me perturbar, mendigo dos infernos!"
+    - "Meu senhor, v\xE1 procurar o que fazer, n\xE3o d\xE1 pra ficar incomodando
+      os outros!"
+    - "Se voc\xEA bater aqui de novo, tu vai se ver comigo! Vagabundo!"
+  - type: 7
+    dialogues:
+    - "N\xE3o Posso desistir vou tentar todas as alternativas"
+    - Preciso procurar pelo menos em cada porta e lixeira
+    - "N\xE3o posso desistir at\xE9 tentar todas as op\xE7\xF5es"
+  - type: 8
+    dialogues:
+    - Estou me setindo fraco
+  - type: 9
+    dialogues:
+    - "Os vultos come\xE7aram a me seguir de novo"
+  - type: 10
+    dialogues:
+    - "Eu n\xE3o estou aguentando mais"
+  - type: 11
+    dialogues:
+    - Acho que vou voltar para meu beco para fechar os olhos
+  - type: 12
+    dialogues:
+    - "De novo n\xE3o! Por favor!!"
+  - type: 13
+    dialogues:
+    - Mais um apareceu
+    - Por favor, me deixem em paz espiritos!!
+    - Parem, Parem, Parem!!
+  - type: 14
+    dialogues:
+    - "Me lembro da minha inf\xE2ncia, eu costumava ser feliz com minha m\xE3ezinha"
+    - Saudades do meu cachorrinho Salsicha
+    - "Est\xE1 escuro e eu estou sozinho de novo"

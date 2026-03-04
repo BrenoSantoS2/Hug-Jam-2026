@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelStarter : MonoBehaviour
 {
@@ -14,12 +16,23 @@ public class LevelStarter : MonoBehaviour
     [Header("Timing")]
     public float fadeOutDuration = 2f;
 
+    // Armazena quais flashbacks já foram vistos nesta sessão
+    private static HashSet<string> flashbacksViewed = new HashSet<string>();
+
     private void Start()
     {
         if (fadeCanvasGroup == null)
             fadeCanvasGroup = FindFirstObjectByType<CanvasGroup>();
 
         StartCoroutine(StartLevelSequence());
+    }
+
+    /// <summary>
+    /// Chame este método quando voltar do menu principal para resetar os flashbacks
+    /// </summary>
+    public static void ResetFlashbacksFromMenu()
+    {
+        flashbacksViewed.Clear();
     }
 
     private IEnumerator StartLevelSequence()
@@ -29,8 +42,19 @@ public class LevelStarter : MonoBehaviour
         if (fadeCanvasGroup != null)
             fadeCanvasGroup.alpha = 1f;
 
-        if (hasFlashback && flashbackPrefab != null)
+        // Identifica a cena atual
+        string currentScene = SceneManager.GetActiveScene().name;
+        
+        // Verifica se deve tocar o flashback
+        bool shouldPlayFlashback = hasFlashback && 
+                                   flashbackPrefab != null && 
+                                   !flashbacksViewed.Contains(currentScene);
+
+        if (shouldPlayFlashback)
         {
+            // Marca como visto
+            flashbacksViewed.Add(currentScene);
+            
             GameObject flashbackInstance = Instantiate(flashbackPrefab);
             Canvas flashbackCanvas = flashbackInstance.GetComponentInChildren<Canvas>();
             if (flashbackCanvas != null)
