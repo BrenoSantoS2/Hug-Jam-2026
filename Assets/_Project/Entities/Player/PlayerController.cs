@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Configurações de Movimento")]
+    [Header("Configuraï¿½ï¿½es de Movimento")]
     public float moveSpeed = 5f;
 
     private Rigidbody2D rb;
@@ -12,18 +12,24 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // Configurações essenciais via código para evitar erros no Inspector
+        // Configuraï¿½ï¿½es essenciais via cï¿½digo para evitar erros no Inspector
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
     }
 
     void Update()
     {
+        if (PauseManager.IsGamePaused)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
+
         // Captura o input (WASD ou Setas)
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
 
-        // Normaliza para que o movimento diagonal não seja mais rápido
+        // Normaliza para que o movimento diagonal nï¿½o seja mais rï¿½pido
         if (moveInput.magnitude > 1)
         {
             moveInput.Normalize();
@@ -32,7 +38,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Aplica o movimento usando a física para respeitar colisões
+        if (PauseManager.IsGamePaused)
+            return;
+
+        // Aplica o movimento usando a fï¿½sica para respeitar colisï¿½es
         rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
     }
 }

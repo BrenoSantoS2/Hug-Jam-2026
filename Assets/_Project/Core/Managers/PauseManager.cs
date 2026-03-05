@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
+    public Button continueButton;
     public bool isPaused;
+    public static bool IsGamePaused { get; private set; }
 
     private InputAction pauseAction;
     private CanvasGroup pauseCanvasGroup;
@@ -21,8 +24,10 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         isPaused = false;
+        IsGamePaused = false;
         
         FindPausePanel();
+        TryWireContinueButton();
 
         HidePausePanel();
         
@@ -32,6 +37,7 @@ public class PauseManager : MonoBehaviour
     void OnDisable()
     {
         Time.timeScale = 1f;
+        IsGamePaused = false;
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -46,8 +52,10 @@ public class PauseManager : MonoBehaviour
     {
         // Quando a cena carregar, tenta encontrar o painel de pause novamente
         isPaused = false;
+        IsGamePaused = false;
         Time.timeScale = 1f;
         FindPausePanel();
+        TryWireContinueButton();
         
         // Esconde o painel usando CanvasGroup
         HidePausePanel();
@@ -105,6 +113,8 @@ public class PauseManager : MonoBehaviour
             FindPausePanel();
         }
 
+        TryWireContinueButton();
+
         // Valida se o painel ainda existe antes de pausar
         if (pausePanel == null || pauseCanvasGroup == null)
         {
@@ -115,6 +125,7 @@ public class PauseManager : MonoBehaviour
         ShowPausePanel();
         Time.timeScale = 0f;
         isPaused = true;
+        IsGamePaused = true;
     }
 
     public void ResumeGame()
@@ -122,6 +133,7 @@ public class PauseManager : MonoBehaviour
         HidePausePanel();
         Time.timeScale = 1f;
         isPaused = false;
+        IsGamePaused = false;
     }
 
     public void GoToMainMenu(string menuSceneName)
@@ -134,8 +146,35 @@ public class PauseManager : MonoBehaviour
         
         Time.timeScale = 1f;
         isPaused = false;
+        IsGamePaused = false;
         
         SceneManager.LoadScene(menuSceneName);
+    }
+
+    private void TryWireContinueButton()
+    {
+        if (pausePanel == null)
+            return;
+
+        if (continueButton == null)
+        {
+            Button[] buttons = pausePanel.GetComponentsInChildren<Button>(true);
+            foreach (Button button in buttons)
+            {
+                string buttonName = button.gameObject.name.ToLowerInvariant();
+                if (buttonName.Contains("continu") || buttonName.Contains("resume") || buttonName.Contains("continue"))
+                {
+                    continueButton = button;
+                    break;
+                }
+            }
+        }
+
+        if (continueButton != null)
+        {
+            continueButton.onClick.RemoveListener(ResumeGame);
+            continueButton.onClick.AddListener(ResumeGame);
+        }
     }
 
     private void StopAllAudio()

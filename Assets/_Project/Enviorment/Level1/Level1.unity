@@ -14297,7 +14297,7 @@ Transform:
   m_GameObject: {fileID: 1539511910}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 32.847034, y: 1.0850999, z: -15}
+  m_LocalPosition: {x: 32.847023, y: 1.0853004, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15550,6 +15550,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2332809699913630842, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
   m_PrefabInstance: {fileID: 1827016917}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1827016919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6732135927388739796, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
+  m_PrefabInstance: {fileID: 1827016917}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1827016920 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 436685294039022871, guid: 97f0bdcc511b5e4439b1d5ec20a75db0, type: 3}
@@ -21137,6 +21148,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4661053039262649723, guid: ca56fecfac596e2469898849eb8266eb, type: 3}
+      propertyPath: pausePanel
+      value: 
+      objectReference: {fileID: 1827016920}
+    - target: {fileID: 4661053039262649723, guid: ca56fecfac596e2469898849eb8266eb, type: 3}
+      propertyPath: continueButton
+      value: 
+      objectReference: {fileID: 1827016919}
     - target: {fileID: 7088104929569868212, guid: ca56fecfac596e2469898849eb8266eb, type: 3}
       propertyPath: 'spawnPoints.Array.data[0]'
       value: 

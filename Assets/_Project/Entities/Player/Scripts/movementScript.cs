@@ -36,6 +36,22 @@ public class BeatEmUpController : MonoBehaviour
 
     void Update()
     {
+        if (PauseManager.IsGamePaused)
+        {
+            moveInput = Vector2.zero;
+            anim.SetFloat("Speed", 0f);
+            anim.SetBool("isJumping", isJumping);
+
+            if (isPlayingFootsteps)
+            {
+                if (SoundManager.Instance != null)
+                    SoundManager.Instance.StopLoopSFX();
+                isPlayingFootsteps = false;
+            }
+
+            return;
+        }
+
         float speed = moveInput.magnitude; 
         anim.SetFloat("Speed", speed);
 
@@ -75,11 +91,20 @@ public class BeatEmUpController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (PauseManager.IsGamePaused)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
+
         moveInput = context.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (PauseManager.IsGamePaused)
+            return;
+
         if (context.started && !isJumping)
         {
             StartCoroutine(JumpRoutine());
@@ -88,6 +113,9 @@ public class BeatEmUpController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
+        if (PauseManager.IsGamePaused)
+            return;
+
         if (context.started && currentItem != null)
         {
             currentItem.StartInteracting();
@@ -101,6 +129,12 @@ public class BeatEmUpController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (PauseManager.IsGamePaused)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         Vector2 velocity = new Vector2(
             moveInput.x * moveSpeed,
             moveInput.y * (moveSpeed * depthMultiplier)

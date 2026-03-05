@@ -27,6 +27,7 @@ public class Beco : MonoBehaviour
 
     private InteractableItem interactable;
     private Coroutine conclusionSequence;
+    private bool isConcluding;
 
 
     void Awake()
@@ -48,6 +49,9 @@ public class Beco : MonoBehaviour
 
     public void OnInteraction()
     {
+        if (isConcluding)
+            return;
+
         if (requireAllItemsExplored)
         {
             int total = GameManager.Instance.GetTotalItemsCount();
@@ -77,6 +81,7 @@ public class Beco : MonoBehaviour
         if (conclusionSequence != null)
             StopCoroutine(conclusionSequence);
 
+        isConcluding = true;
         conclusionSequence = StartCoroutine(ConclusionSequence());
     }
 
@@ -100,11 +105,8 @@ public class Beco : MonoBehaviour
                     videoCanvasGroup.alpha = 0f;
                     yield return StartCoroutine(FadeCanvas(videoCanvasGroup, 0f, 1f, fadeOutDuration));
                 }
-                videoPlayer.Play();
 
-                float startTime = Time.realtimeSinceStartup;
-                while (videoPlayer.isPlaying && (Time.realtimeSinceStartup - startTime) < (float)finalVideoClip.length)
-                    yield return null;
+                yield return StartCoroutine(PlayVideoUnskippable(finalVideoClip));
 
                 if (videoCanvasGroup != null)
                     yield return StartCoroutine(FadeCanvas(videoCanvasGroup, 1f, 0f, fadeOutDuration));
@@ -125,7 +127,44 @@ public class Beco : MonoBehaviour
         }
 
         Time.timeScale = 1f;
+        isConcluding = false;
         LoadNextScene();
+    }
+
+    private IEnumerator PlayVideoUnskippable(VideoClip clip)
+    {
+        if (videoPlayer == null || clip == null)
+            yield break;
+
+        videoPlayer.Stop();
+        videoPlayer.isLooping = false;
+        videoPlayer.skipOnDrop = false;
+        videoPlayer.clip = clip;
+
+        bool reachedEnd = false;
+        VideoPlayer.EventHandler endHandler = (VideoPlayer source) => reachedEnd = true;
+        videoPlayer.loopPointReached += endHandler;
+
+        videoPlayer.Prepare();
+
+        float prepareStart = Time.realtimeSinceStartup;
+        const float prepareTimeout = 5f;
+        while (!videoPlayer.isPrepared && (Time.realtimeSinceStartup - prepareStart) < prepareTimeout)
+            yield return null;
+
+        videoPlayer.Play();
+
+        float startTime = Time.realtimeSinceStartup;
+        float minimumDuration = (float)clip.length;
+
+        while (!reachedEnd && (Time.realtimeSinceStartup - startTime) < minimumDuration)
+            yield return null;
+
+        // Garante duração mínima mesmo se o evento de fim não disparar.
+        while ((Time.realtimeSinceStartup - startTime) < minimumDuration)
+            yield return null;
+
+        videoPlayer.loopPointReached -= endHandler;
     }
 
 
